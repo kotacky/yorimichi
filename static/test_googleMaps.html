@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Maps</title>
+    <style>
+#map {
+  width: 100%;
+  height: 400px;
+  background-color: grey;
+}
+	</style>
+
+</head>
+<body>
+
+<div id="map"></div>
+
+<script>
+    function initMap() {
+        var latlng = new google.maps.LatLng( 34.808502, 135.639683 );//中心の緯度, 経度
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 14,//ズームの調整
+          center: latlng//上で設定した中心
+        });
+        var marker = new google.maps.Marker({
+          position: latlng,
+          map: map
+        });
+      }
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKkOwCMo6QR_k7UW7znFBF8xR7o-x30jQ&callback=initMap"></script>
+
+</body>
+</html>

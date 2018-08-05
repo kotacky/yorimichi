@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+{% load rest_framework %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+	<!-- CSS読み込み -->
+	<!--<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">-->
+	<!--<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">-->
+	<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <!--<script type="text/javascript" src="{{STATIC_URL}}js/jquery-1.11.0.min.js"></script>-->
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDGkTT-OCucXTF5kLkOKTTFKeCC4ljEExE&libraries=places"></script>
+    <script type="text/javascript" src="https://raw.githubusercontent.com/juniskw/django_tools/master/csrf_token_ajax.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script type="text/javascript" src="{% static 'js/sample.js' %}"></script>
+</head>
+<body>
+		<h1>サンプル画面
+		</h1>
+
+		<p id="msg">さとしん
+		</p>
+		<form id="surprise_fm" action="" method="GET">
+			<div id="select-box">
+				<select id="sports" name="hoge">
+				  <option>{{ m_category.0.category_name }}</option>
+				  <!-- jinja2を利用してループさせる -->
+			  	  {% for object in m_category %}
+      					  <option>{{ object.sub_category_name }}</option>
+    				{% endfor %}
+				</select>
+			</div>
+			<br/>
+			{% csrf_token %}
+        	<input type="button" size="55" value="検索" onClick="SearchGo()" />
+    	</form>
+		<br/>
+		API取得結果(category_name): <input type="text" id="result" value=""><br>
+		<button id ="retrieve" style="background-color: #66FFAA;" onClick="GetAPI()"/>GET API</button>
+		<br/>
+		<br/>
+		<form id="radio_form" action="search" method="GET">
+			<input type="radio" id="radio" name="example" value="スポーツ">スポーツ
+    	</form>
+		API取得結果(category_name): <input type="text" id="searchGoBox" value=""><br>
+        <button id ="button2" value="検索" onClick="SearchSubCategory()" />検索</button>
+		<br/>
+		<br/>
+		</p>
+		<!-- 地図表示させる -->
+		<div class="map-wrapper">
+			<div id="map-canvas"></div>
+		</div>
+
+		<table border="brwsr1">
+			<Tr>
+				<Th id="th1">No.</Th>
+				<Th id="th2">店舗・施設</Th>
+			</Tr>
+			<Tr>
+				<Td id="td1">1</Td>
+				<Td id="td2"><a href="sample.html" title="">井の頭　恩腸公園</a></Td>
+			</Tr>
+			<Tr>
+				<Td id="td1">2</Td>
+				<Td id="td2"><a href="sample.html" title="">鎌田公園</a></Td>
+			</Tr>
+		</table>
+		<br>
+		<div id="footer">
+			<p id="copyright">Copyright (c) training_scrum Inc. All Rights Reserved.</p>
+		</div>
+</body>
+
+</html>

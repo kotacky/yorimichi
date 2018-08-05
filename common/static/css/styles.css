@@ -1,0 +1,193 @@
+﻿@charset "utf-8";
+
+/*-------------------------------------*/
+
+body{
+	background: linear-gradient(#A9E2F3, #0080FF);
+	line-height: 1.5;
+	font-family: 'Lucida Grande','Hiragino Kaku Gothic ProN', 'ヒラギノ角ゴ ProN W3', Meiryo, メイリオ, sans-serif;
+	margin: 10px;
+	text-align: center;
+}
+
+#hedder {
+	margin: 15px;
+	font-size: 3.0em;
+	font-weight: bold;
+}
+
+#msg {
+	margin: 10px;
+	font-size: 1.5em;
+	font-weight: 600;
+}
+
+#item {
+	margin: 25px
+}
+#item2 {
+	margin-bottom: 8px
+}
+/*-------------------------------------*/
+/* フォーム */
+/*-------------------------------------*/
+
+div#select-box select{
+	width: 200px;
+	height: 60px;
+	font-size: 1.5em;
+	font-weight: bold;
+	padding: 10px 20px;
+	border-coler: #FF8000;
+	background-color: #FE9A2E;
+	color: #FFF;
+	border-style: none;
+	border: solid 2px #FF8000;
+	border-radius: 10px
+}
+
+select::-ms-expand {
+    display: none;
+}
+
+option {
+	background: ##FFBF00 url('Icon.GIF') no-repeat 4px center;
+}
+
+button#button1{
+	width: 150px;
+	height: 60px;
+	font-size: 1.5em;
+	font-weight: bold;
+	padding: 10px 30px;
+	background-color: #FF6699;
+	color: #fff;
+	border-style: none;
+	border: solid 2px #CC6699;
+	border-radius: 10px
+}
+
+/*-------------------------------------*/
+/* マップ */
+/*-------------------------------------*/
+
+#map {
+	width: 800px;
+	height: 600px;
+	border-style: none;
+}
+
+/*-------------------------------------*/
+/* テーブル */
+/*-------------------------------------*/
+
+table{
+	margin-left: auto;
+	margin-right: auto;
+	border-width: 5px;
+	background: #FFF;
+	border-color: #FFF;
+	border-style: solid;
+	border-width: medium;
+}
+
+Th#th1{
+	font-size: 1.3em;
+	padding-right: 5px;
+	padding-left: 5px;
+	width: 60px;
+	height: 60px;
+	background-color: #2ECCFA;
+	color: #FFF;
+	border-color: #FFF;
+	border-style: solid;
+	border-width: medium;
+}
+Th#th2{
+	font-size: 1.3em;
+	text-align: left;
+	padding-right: 10px;
+	padding-left: 10px;
+	width: 690px;
+	height: 60px;
+	background-color: #2ECCFA;
+	color: #FFF;
+	border-color: #FFF;
+	border-style: solid;
+	border-width: medium;
+}
+
+Td#td1 {
+	font-size: 1.3em;
+	padding-right: 5px;
+	padding-left: 5px;
+	width: 60px;
+	height: 60px;
+	background-color: #EFF5FB;
+	border-color: #FFF;
+	border-style: solid;
+	border-width: medium;
+}
+
+Td#td2 {
+	font-size: 1.3em;
+	text-align: left;
+	padding-right: 10px;
+	padding-left: 10px;
+	width: 690px;
+	height: 60px;
+	background-color: #EFF5FB;
+	border-color: #FFF;
+	border-style: solid;
+	border-width: medium;
+}
+
+#sample {
+    width: 700px;
+    height: 400px;
+}
+
+/*-------------------------------------*/
+/* フッター */
+/*-------------------------------------*/
+
+div#footer{
+	text-align: center;
+}
+
+div#footer p#copyright{
+	text-align: left;
+	padding: 5px;
+	color: black;
+	font-family:"lucida grande", tahoma, verdana, arial, sans-serif!important;
+}
+
+/**************************************************
+
+	Google Maps
+
+**************************************************/
+.map-wrapper
+{
+	max-width: 100% ;
+	padding-bottom: 75% ;
+	position: relative ;
+	top: 0 ;
+	left: 500 ;
+	height: 0 ;
+	overflow: hidden ;
+}
+
+.map-wrapper > div
+{
+	position: absolute ;
+	top: 0 ;
+	left: 500 ;
+	width: 50% ;
+	height: 50%
+}
+
+.map-wrapper img
+{
+	max-width: none ;
+}
