@@ -1,0 +1,161 @@
+@charset "utf-8";
+/*-------------------------------------*/
+
+body{
+	background: linear-gradient(#A9E2F3, #0080FF);
+	line-height: 0.5;
+	font-family: 'Lucida Grande','Hiragino Kaku Gothic ProN', 'ヒラギノ角ゴ ProN W3', Meiryo, メイリオ, sans-serif;
+	margin: 15px;
+	text-align: center;
+}
+
+#hedder {
+	font-size: 6.0em;
+	font-weight: bold;
+	margin: 70px
+}
+
+#msg {
+	font-size: 2.5em;
+	font-weight: 600;
+}
+
+#item {
+	margin: 25px
+}
+#item2 {
+	margin-bottom: 15px
+}
+
+/*-------------------------------------*/
+/* フォーム */
+/*-------------------------------------*/
+
+div#select-box select{
+	width: 270px;
+	height: 100px;
+	font-size: 2.5em;
+	font-weight: bold;
+	padding: 20px 20px;
+	border-coler: #FF8000;
+	background-color: #FE9A2E;
+	color: #FFF;
+	border-style: none;
+	border: solid 2px #FF8000;
+	border-radius: 10px
+}
+
+select::-ms-expand {
+    display: none;
+}
+
+option {
+	background: ##FFBF00 url('Icon.GIF') no-repeat 4px center;
+}
+
+button#button1{
+	width: 260px;
+	height: 100px;
+	font-size: 2.5em;
+	font-weight: bold;
+	padding: 10px 30px;
+	background-color: #FF6699;
+	color: #fff;
+	border-style: none;
+	border: solid 2px #CC6699;
+	border-radius: 10px
+}
+
+/*-------------------------------------*/
+/* マップ */
+/*-------------------------------------*/
+
+#map {
+	width: 680px;
+	height: 510px;
+	border-style: none;
+}
+/*-------------------------------------*/
+/* テーブル */
+/*-------------------------------------*/
+
+table {
+	margin-left: auto;
+	margin-right: auto;
+	border-width: 1px;
+	background: #FFF;
+	border-color: #FFF;
+	border-style: solid;
+	border-width: medium;
+}
+Th#th1{
+	font-size: 1.7em;
+	font-weight: medium;
+	padding-right: 10px;
+	padding-left: 10px;
+	width: 70px;
+	height: 70px;
+	background-color: #2ECCFA;
+	color: #FFF;
+	border-color: #FFF;
+	border-style: solid;
+	border-width: medium;
+}
+Th#th2{
+	text-align: left;
+	font-size: 1.7em;
+	font-weight: medium;
+	padding-right: 10px;
+	padding-left: 10px;
+	width: 550px;
+	height: 50px;
+	background-color: #2ECCFA;
+	color: #FFF;
+	border-color: #FFF;
+	border-style: solid;
+	border-width: medium;
+}
+
+Td#td1 {
+	font-size: 1.7em;
+	font-weight: medium;
+	padding-right: 10px;
+	padding-left: 10px;
+	width: 70px;
+	height: 70px;
+	background-color: #EFF5FB;
+	border-color: #FFF;
+	border-style: solid;
+	border-width: medium;
+}
+
+Td#td2 {
+	font-size: 1.7em;
+	font-weight: medium;
+	text-align: left;
+	padding-right: 10px;
+	padding-left: 10px;
+	width: 550px;
+	height: 50px;
+	background-color: #EFF5FB;
+	border-color: #FFF;
+	border-style: solid;
+	border-width: medium;
+}
+
+/*-------------------------------------*/
+/* フッター */
+/*-------------------------------------*/
+
+div#footer{
+	text-align: center;
+}
+
+div#footer p#copyright{
+	font-size: 1.5em;
+	text-align: left;
+	padding: 5px;
+	color: black;
+	font-family:"lucida grande", tahoma, verdana, arial, sans-serif!important;
+}
+
