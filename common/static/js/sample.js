@@ -34,18 +34,8 @@ function initialize() {
                // 位置情報
                latlng = new google.maps.LatLng( lat , lng ) ;
 
-               // Google Mapsに書き出し
-               map = new google.maps.Map( document.getElementById( 'map-canvas' ) , {
-                   zoom: zoom ,                // ズーム値
-                   center: latlng ,        // 中心座標 [latlng]
-                   mapTypeId: google.maps.MapTypeId.ROADMAP
-               } ) ;
-
-               // マーカーの新規出力
-               new google.maps.Marker( {
-                   map: map ,
-                   position: latlng ,
-               } ) ;
+               // Google Maps作成
+               NewMap();
        } ,
        // [第2引数] 取得に失敗した場合の関数
         function( error )
@@ -100,6 +90,20 @@ function Result_Places(results, status){
        }
    }
 }
+//初期マップ作成
+function NewMap() {
+    // Google Mapsに書き出し
+    map = new google.maps.Map( document.getElementById( 'map-canvas' ) , {
+        zoom: zoom ,                // ズーム値
+        center: latlng ,        // 中心座標 [latlng]
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    } ) ;
+    // マーカーの新規出力
+    new google.maps.Marker( {
+        map: map ,
+        position: latlng ,
+    } ) ;
+}
 // 入力キーワードと表示範囲を設定
 function SearchGo() {
 //    var initPos = new google.maps.LatLng(lat,lng);
@@ -108,18 +112,34 @@ function SearchGo() {
 //        zoom: zoom,
 //        mapTypeId : google.maps.MapTypeId.ROADMAP
 //    };
-   // #map_canva要素にMapクラスの新しいインスタンスを作成
- //  map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
-   service = new google.maps.places.PlacesService(map);
-   // input要素に入力されたキーワードを検索の条件に設定
-   var myword = document.getElementById("searchGoBox");
-   var request = {
-       query : myword.value,
-       radius : 5000,
-       location : latlng
-   };
+// #map_canva要素にMapクラスの新しいインスタンスを作成
+//  map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+    // DBからサブカテゴリを取得
+    // マップ初期化
+     NewMap();
+     $.ajax({
+        'url':'../api/' + $("input[name='radio_item']:checked").val() + '/search/',
+        'type':'GET',
+        'data':{},
+        'dataType':'json',
+        'success':function(response){
+        var array = []
+        for(var i in response){
+        array.push(response[i].sub_category_name);
+        }
+        console.log(array)
+           service = new google.maps.places.PlacesService(map);
+            // input要素に入力されたキーワードを検索の条件に設定
+            var request = {
+            query : array,
+            radius : 5000,
+            location : latlng
+            };
 
-   service.textSearch(request, result_search);
+            service.textSearch(request, result_search);
+        },
+    });
+
 }
 
 // 検索の結果を受け取る

@@ -20,10 +20,10 @@
 		<p id="msg">カテゴリを選択してください。
 		</p>
 		<form id="radio_item" action="radio.php" method="post">
-			<input type="radio" name="radio_item" value="1" id="movie">映画
+			<input type="radio" name="radio_item" value="001" id="movie">映画
 			<input type="radio" name="radio_item" value="002" id="gourmet">グルメ
-			<input type="radio" name="radio_item" value="3" id="sport">スポーツ
-			<input type="radio" name="radio_item" value="4" id="book">本
+			<input type="radio" name="radio_item" value="003" id="sport">スポーツ
+			<input type="radio" name="radio_item" value="004" id="book">本
 			</form>
 			<br/>
 			{% csrf_token %}
@@ -32,8 +32,6 @@
 		<br/>
 		<h2>API取得結果</h2>
 		<input type="text" id="result" value=""><br>
-		GoogleMap検索<br>
-		<input type="text" id="searchGoBox" value=""><br>
 		<!-- jinja2を利用してループさせる -->
 		<br/>
 		<!-- 地図表示させる -->
@@ -74,10 +72,12 @@ $('#search_btn').click(function() {
         'data':{},
         'dataType':'json',
         'success':function(response){
+        var array_list = []
+        for(var sub in response){
+        	array_list.push(response[sub].sub_category_name);
+        }
         $('#result').val(
-              response[0].sub_category_name + ':' +
-          	  response[1].sub_category_name + ':' +
-          	  response[2].sub_category_name
+        	array_list.join(' ')
         	  <!--obj = $.map(response, function(val, key){-->
   			  	<!--return (val + ': ' + key);-->
 			  <!--});-->
