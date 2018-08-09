@@ -26,9 +26,6 @@ function initialize() {
             var heading = data.heading ;            //0=北,90=東,180=南,270=西
             var speed = data.speed ;
 
-            // HTMLへの書き出し
-            // document.getElementById( 'result' ).innerHTML = '<dl><dt>緯度</dt><dd>' + lat + '</dd><dt>経度</dt><dd>' + lng + '</dd><dt>高度</dt><dd>' + alt + '</dd><dt>緯度、経度の精度</dt><dd>' + accLatlng + '</dd><dt>高度の精度</dt><dd>' + accAlt + '</dd><dt>方角</dt><dd>' + heading + '</dd><dt>速度</dt><dd>' + speed + '</dd></dl>' ;
-
             // 位置情報
             latlng = new google.maps.LatLng( lat , lng ) ;
 
@@ -60,8 +57,6 @@ function initialize() {
             // アラート表示
             alert( errorMessage ) ;
 
-            // HTMLに書き出し
-            // document.getElementById("result").innerHTML = errorMessage;
         } ,
         // [第3引数] オプション
         {
@@ -149,7 +144,7 @@ function result_search(results, status) {
 function createMarker(options) {
     // マップ情報を保持しているmapオブジェクトを指定
     options.map = map;
-    // Markcrクラスのオブジェクトmarkerを作成
+    // Markerクラスのオブジェクトmarkerを作成
     var marker = new google.maps.Marker(options);
     // 各施設の吹き出し(情報ウインドウ)に表示させる処理
     var infoWnd = new google.maps.InfoWindow();
