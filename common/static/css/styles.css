@@ -3,7 +3,7 @@
 /*-------------------------------------*/
 
 body{
-	background: linear-gradient(#A9E2F3, #0080FF);
+	background: #FFFFE0;
 	line-height: 1.5;
 	font-family: 'Lucida Grande','Hiragino Kaku Gothic ProN', 'ヒラギノ角ゴ ProN W3', Meiryo, メイリオ, sans-serif;
 	margin: 10px;
@@ -16,15 +16,22 @@ body{
 	font-weight: bold;
 }
 
+#product {
+	margin: 10px;
+	font-size: 2.5em;
+	font-weight: 600;
+}
+
 #msg {
 	margin: 10px;
 	font-size: 1.5em;
 	font-weight: 600;
 }
 
-#item {
-	margin: 25px
+#margin {
+	margin: 15px
 }
+
 #item2 {
 	margin-bottom: 8px
 }
@@ -32,18 +39,29 @@ body{
 /* フォーム */
 /*-------------------------------------*/
 
-div#select-box select{
-	width: 200px;
-	height: 60px;
-	font-size: 1.5em;
+label{
+	cursor: pointer;
+	position: relative;
+	display: inline-block;
+	width: 180px;
+	height: 70px;
+	font-size: 1.3em;
 	font-weight: bold;
-	padding: 10px 20px;
-	border-coler: #FF8000;
-	background-color: #FE9A2E;
-	color: #FFF;
+	border-coler: #FFD700;
+	background: url(../img/category_color.png) 0 0;
+	color: #000000;
 	border-style: none;
-	border: solid 2px #FF8000;
+	border: solid 2px #FFD700;
 	border-radius: 10px
+}
+
+input {
+    display: none;
+}
+
+input[type="radio"]:checked + .label{
+	background-position: left bottom;
+	color: #FFFFFF;
 }
 
 select::-ms-expand {
@@ -51,19 +69,20 @@ select::-ms-expand {
 }
 
 option {
-	background: ##FFBF00 url('Icon.GIF') no-repeat 4px center;
+	background: #FFBF00 url('Icon.GIF') no-repeat 4px center;
 }
 
-button#button1{
+button#search_btn{
 	width: 150px;
-	height: 60px;
+	height: 70px;
+	margin: 15px;
 	font-size: 1.5em;
 	font-weight: bold;
 	padding: 10px 30px;
-	background-color: #FF6699;
+	background-color: #FFD700;
 	color: #fff;
 	border-style: none;
-	border: solid 2px #CC6699;
+	border: solid 2px #FFD700;
 	border-radius: 10px
 }
 
@@ -71,7 +90,7 @@ button#button1{
 /* マップ */
 /*-------------------------------------*/
 
-#map {
+#map-canvas {
 	width: 800px;
 	height: 600px;
 	border-style: none;
@@ -97,7 +116,7 @@ Th#th1{
 	padding-left: 5px;
 	width: 60px;
 	height: 60px;
-	background-color: #2ECCFA;
+	background-color: #F4A460;
 	color: #FFF;
 	border-color: #FFF;
 	border-style: solid;
@@ -110,7 +129,7 @@ Th#th2{
 	padding-left: 10px;
 	width: 690px;
 	height: 60px;
-	background-color: #2ECCFA;
+	background-color: #F4A460;
 	color: #FFF;
 	border-color: #FFF;
 	border-style: solid;
@@ -141,12 +160,6 @@ Td#td2 {
 	border-style: solid;
 	border-width: medium;
 }
-
-#sample {
-    width: 700px;
-    height: 400px;
-}
-
 /*-------------------------------------*/
 /* フッター */
 /*-------------------------------------*/
@@ -162,32 +175,3 @@ div#footer p#copyright{
 	font-family:"lucida grande", tahoma, verdana, arial, sans-serif!important;
 }
 
-/**************************************************
-
-	Google Maps
-
-**************************************************/
-.map-wrapper
-{
-	max-width: 100% ;
-	padding-bottom: 75% ;
-	position: relative ;
-	top: 0 ;
-	left: 500 ;
-	height: 0 ;
-	overflow: hidden ;
-}
-
-.map-wrapper > div
-{
-	position: absolute ;
-	top: 0 ;
-	left: 500 ;
-	width: 50% ;
-	height: 50%
-}
-
-.map-wrapper img
-{
-	max-width: none ;
-}

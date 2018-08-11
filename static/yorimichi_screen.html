@@ -4,8 +4,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>ひま粒See</title>
+    <title>寄道くん</title>
 	<!-- CSS読み込み -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 	<!--<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">-->
 	<!--<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">-->
 	<link rel="stylesheet" href="{% static 'css/styles.css' %}">
@@ -16,76 +17,41 @@
 	<script type="text/javascript" src="{% static 'js/sample.js' %}"></script>
 </head>
 <body>
-		<h1>ひま粒See</h1>
-		<p id="msg">カテゴリを選択してください。
-		</p>
-		<form id="radio_item" action="radio.php" method="post">
-			<input type="radio" name="radio_item" value="1" id="movie">映画
-			<input type="radio" name="radio_item" value="002" id="gourmet">グルメ
-			<input type="radio" name="radio_item" value="3" id="sport">スポーツ
-			<input type="radio" name="radio_item" value="4" id="book">本
-			</form>
-			<br/>
-			{% csrf_token %}
-        	<button id ="search_btn" value="検索" onClick="SearchGo()"/>検索</button>
-    	</form>
-		<br/>
-		<h2>API取得結果</h2>
-		<input type="text" id="result" value=""><br>
-		GoogleMap検索<br>
-		<input type="text" id="searchGoBox" value=""><br>
-		<!-- jinja2を利用してループさせる -->
-		<br/>
-		<!-- 地図表示させる -->
-		<div class="map-wrapper">
-			<div id="map-canvas"></div>
-		</div>
-		<br/>
-		<table border="brwsr1">
-			<Tr>
-				<Th id="th1">No.</Th>
-				<Th id="th2">店舗・施設</Th>
-			</Tr>
-			<Tr>
-				<Td id="td1">1</Td>
-				<Td id="td2"><a href="sample.html" title="">井の頭　恩腸公園</a></Td>
-			</Tr>
-			<Tr>
-				<Td id="td1">2</Td>
-				<Td id="td2"><a href="sample.html" title="">鎌田公園</a></Td>
-			</Tr>
-		</table>
-		<br>
-		<div id="footer">
-			<p id="copyright">Copyright (c) training_scrum Inc. All Rights Reserved.</p>
-		</div>
+	<p id="product">寄道くん</p>
+	<p id="msg">カテゴリを選択してください。</p>
+	<form id="radio_item" action="radio.php" method="post">
+		<input type="radio" name="radio_item" value="001" id="movie"><label class="label" for="movie" name="movie" ><p>映画</p></label>
+		&nbsp;
+		<input type="radio" name="radio_item" value="002" id="gourmet"><label class="label" for="gourmet" name="gourmet"><p>グルメ</p></label>
+		<p id="margin"></p>
+		<input type="radio" name="radio_item" value="003" id="sports"><label class="label" for="sports" name="sports"><p>スポーツ</p></label>
+		&nbsp;
+		<input type="radio" name="radio_item" value="004" id="book"><label class="label" for="book" name="book"><p>本</p></label>
+	</form>
+	{% csrf_token %}
+	<button id ="search_btn" value="検索" onClick="SearchGo()">検索</button>
+	<!-- 地図表示させる -->
+	<div id="map-wrapper">
+		<center><div id="map-canvas" ></div></center>
+	</div>
+	<br>
+	<table border="brwsr1">
+		<Tr>
+			<Th id="th1">No.</Th>
+			<Th id="th2">店舗・施設</Th>
+		</Tr>
+		<Tr>
+			<Td id="td1">1</Td>
+			<Td id="td2"><a href="sample.html" title="">井の頭　恩腸公園</a></Td>
+		</Tr>
+		<Tr>
+			<Td id="td1">2</Td>
+			<Td id="td2"><a href="sample.html" title="">鎌田公園</a></Td>
+		</Tr>
+	</table>
+	<br>
+	<div id="footer">
+		<p id="copyright">Copyright (c) training_scrum Inc. All Rights Reserved.</p>
+	</div>
 </body>
-<script>
-<!--$('#search_btn').click(function() {-->
- 	<!--$('#result').val('成功');-->
-<!--});-->
-<!--$('#search_btn').click(function() {-->
- 	<!--$('#result').val($("input[name='radio_item']:checked").val());-->
-<!--});-->
-$('#search_btn').click(function() {
-    $.ajax({
-        'url':'../api/' + $("input[name='radio_item']:checked").val() + '/search/',
-        'type':'GET',
-        'data':{},
-        'dataType':'json',
-        'success':function(response){
-        $('#result').val(
-              response[0].sub_category_name + ':' +
-          	  response[1].sub_category_name + ':' +
-          	  response[2].sub_category_name
-        	  <!--obj = $.map(response, function(val, key){-->
-  			  	<!--return (val + ': ' + key);-->
-			  <!--});-->
-			);
-        },
-    });
-    <!--$('#result').val('失敗');-->
-    return false;
-});
-</script>
 </html>

@@ -2,7 +2,7 @@
 /*-------------------------------------*/
 
 body{
-	background: linear-gradient(#A9E2F3, #0080FF);
+	background: #FFFFE0;
 	line-height: 0.5;
 	font-family: 'Lucida Grande','Hiragino Kaku Gothic ProN', 'ヒラギノ角ゴ ProN W3', Meiryo, メイリオ, sans-serif;
 	margin: 15px;
@@ -15,14 +15,21 @@ body{
 	margin: 70px
 }
 
+#product {
+	margin: 60px;
+	font-size: 4.0em;
+	font-weight: 600;
+}
+
 #msg {
 	font-size: 2.5em;
 	font-weight: 600;
 }
 
-#item {
+#margin {
 	margin: 25px
 }
+
 #item2 {
 	margin-bottom: 15px
 }
@@ -31,18 +38,29 @@ body{
 /* フォーム */
 /*-------------------------------------*/
 
-div#select-box select{
-	width: 270px;
-	height: 100px;
-	font-size: 2.5em;
+label{
+	cursor: pointer;
+	position: relative;
+	display: inline-block;
+	width: 250px;
+	height: 90px;
+	font-size: 2.3em;
 	font-weight: bold;
-	padding: 20px 20px;
-	border-coler: #FF8000;
-	background-color: #FE9A2E;
-	color: #FFF;
+	border-coler: #FFD700;
+	background: url(../img/category_color_android.png) 0 0;
+	color: #000000;
 	border-style: none;
-	border: solid 2px #FF8000;
+	border: solid 4px #FFD700;
 	border-radius: 10px
+}
+
+input {
+	display: none;
+}
+
+input[type="radio"]:checked + .label{
+	background-position: left bottom;
+	color: #FFFFFF;
 }
 
 select::-ms-expand {
@@ -53,16 +71,17 @@ option {
 	background: ##FFBF00 url('Icon.GIF') no-repeat 4px center;
 }
 
-button#button1{
+button#search_btn{
 	width: 260px;
 	height: 100px;
+	margin: 20px;
 	font-size: 2.5em;
 	font-weight: bold;
 	padding: 10px 30px;
-	background-color: #FF6699;
+	background-color: #FFD700;
 	color: #fff;
 	border-style: none;
-	border: solid 2px #CC6699;
+	border: solid 2px #FFD700;
 	border-radius: 10px
 }
 
@@ -70,7 +89,7 @@ button#button1{
 /* マップ */
 /*-------------------------------------*/
 
-#map {
+#map-canvas {
 	width: 680px;
 	height: 510px;
 	border-style: none;
@@ -95,7 +114,7 @@ Th#th1{
 	padding-left: 10px;
 	width: 70px;
 	height: 70px;
-	background-color: #2ECCFA;
+	background-color: #F4A460;
 	color: #FFF;
 	border-color: #FFF;
 	border-style: solid;
@@ -109,7 +128,7 @@ Th#th2{
 	padding-left: 10px;
 	width: 550px;
 	height: 50px;
-	background-color: #2ECCFA;
+	background-color: #F4A460;
 	color: #FFF;
 	border-color: #FFF;
 	border-style: solid;
