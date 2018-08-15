@@ -1,10 +1,26 @@
+// マップ
 var map;
+// サービス
 var service;
+// 緯度
 var lat;
+// 経度
 var lng;
+// 緯度経度
 var latlng;
+// ズーム
 var zoom;
 //現在位置取得
+
+//検索ボタン有効化切り替え
+$(function() {
+    // 初期表示時、検索ボタン無効化
+    document.getElementById("search_btn").disabled = true;
+    // ラジオボタンチェック時に有効化
+    $(":radio").on('change', function() {
+        document.getElementById("search_btn").disabled = false;
+    });
+});
 
 // マップの初期設定
 function initialize() {
@@ -108,7 +124,7 @@ function SearchGo() {
         'data':{},
         'dataType':'json',
         'success':function(response){
-            var array = []
+            var array = [];
             for(var i in response){
                 array.push(response[i].sub_category_name);
             }
@@ -127,15 +143,18 @@ function SearchGo() {
 
 // 検索の結果を受け取る
 function result_search(results, status) {
-
-   var bounds = new google.maps.LatLngBounds();
-   for(var i = 0; i < 5; i++){
-       createMarker({
+    // 検索結果が0件の場合、リターン
+    if (results.length == 0) {
+        return;
+    }
+    var bounds = new google.maps.LatLngBounds();
+    for(var i = 0; i < 5; i++){
+        createMarker({
             position : results[i].geometry.location,
             text : results[i].name,
             map : map
-        });
-       bounds.extend(results[i].geometry.location);
+    });
+    bounds.extend(results[i].geometry.location);
    }
    map.fitBounds(bounds);
 }
