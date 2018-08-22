@@ -29,7 +29,8 @@
 		<input type="radio" name="radio_item" value="004" id="book"><label class="label" for="book" name="book"><p>本</p></label>
 	</form>
 	{% csrf_token %}
-	<button id ="search_btn" value="検索" onClick="SearchGo()">検索</button>
+	<!-- ラジオボタン押下時に「disabled=false」に変更して「検索ボタン」を活性化する -->
+	<button id ="search_btn" value="検索" onClick="SearchGo()" disabled=true >検索</button>
 	<!-- 地図表示させる -->
 	<div id="map-wrapper">
 		<center><div id="map-canvas" ></div></center>
