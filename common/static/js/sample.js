@@ -18,11 +18,11 @@ var id_list = ["td1", "td2"];
 
 //検索ボタン有効化切り替え
 $(function() {
-    // 初期表示時、検索ボタン無効化
-    document.getElementById("search_btn").disabled = true;
     // ラジオボタンチェック時に有効化
     $(":radio").on('change', function() {
-        document.getElementById("search_btn").disabled = false;
+        if (document.getElementById("search_btn").disabled == true) {
+            document.getElementById("search_btn").disabled = false;
+        }
     });
 });
 
@@ -147,14 +147,15 @@ function SearchGo() {
 
 // 検索の結果を受け取る
 function result_search(results, status) {
+    // テーブル取得、表示、初期化
+    var tbl = document.getElementById('place_list');
+    tbl.style.display = "";
+    while (tbl.rows.length > 1) tbl.deleteRow(1);
     // 検索結果が0件の場合、リターン
     if (results.length == 0) {
         return;
     }
     var bounds = new google.maps.LatLngBounds();
-    // テーブル取得、初期化
-    var tbl = document.getElementById('place_list');
-    while (tbl.rows.length > 1) tbl.deleteRow(1);
     console.log(tbl);
     // マーカー設定
     for(var i = 0; i < restriction_number; i++){
