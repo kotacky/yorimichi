@@ -14,11 +14,11 @@ var zoom;
 
 //検索ボタン有効化切り替え
 $(function() {
-    // 初期表示時、検索ボタン無効化
-    document.getElementById("search_btn").disabled = true;
     // ラジオボタンチェック時に有効化
     $(":radio").on('change', function() {
-        document.getElementById("search_btn").disabled = false;
+        if (document.getElementById("search_btn").disabled == true) {
+            document.getElementById("search_btn").disabled = false;
+        }
     });
 });
 
