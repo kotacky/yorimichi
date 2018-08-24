@@ -19,7 +19,7 @@
 <body>
 	<p id="product">寄道くん</p>
 	<p id="msg">カテゴリを選択してください。</p>
-	<form id="radio_item" action="radio.php" method="post">
+	<form id="radio_item" method="post">
 		<input type="radio" name="radio_item" value="001" id="movie"><label class="label" for="movie" name="movie" ><p>映画</p></label>
 		&nbsp;
 		<input type="radio" name="radio_item" value="002" id="gourmet"><label class="label" for="gourmet" name="gourmet"><p>グルメ</p></label>
@@ -36,18 +36,10 @@
 		<center><div id="map-canvas" ></div></center>
 	</div>
 	<br>
-	<table border="brwsr1">
+	<table id="place_list" border="brwsr1" style="display:none">
 		<Tr>
 			<Th id="th1">No.</Th>
 			<Th id="th2">店舗・施設</Th>
-		</Tr>
-		<Tr>
-			<Td id="td1">1</Td>
-			<Td id="td2"><a href="sample.html" title="">井の頭　恩腸公園</a></Td>
-		</Tr>
-		<Tr>
-			<Td id="td1">2</Td>
-			<Td id="td2"><a href="sample.html" title="">鎌田公園</a></Td>
 		</Tr>
 	</table>
 	<br>

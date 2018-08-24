@@ -10,6 +10,10 @@ var lng;
 var latlng;
 // ズーム
 var zoom;
+// 表示件数
+var restriction_number = 5;
+// IDリスト
+var id_list = ["td1", "td2"];
 //現在位置取得
 
 //検索ボタン有効化切り替え
@@ -89,7 +93,7 @@ function Result_Places(results, status){
     if(status == google.maps.places.PlacesServiceStatus.OK) {
         for (var i = 0; i < results.length; i++) {
         // 検索結果の数だけ反復処理を変数placeに格納
-        var place = 5;
+        var place = restriction_number;
         createMarker({
             text : place.name,
             position : place.geometry.location
@@ -143,20 +147,46 @@ function SearchGo() {
 
 // 検索の結果を受け取る
 function result_search(results, status) {
+    // テーブル取得、表示、初期化
+    var tbl = document.getElementById('place_list');
+    tbl.style.display = "";
+    while (tbl.rows.length > 1) tbl.deleteRow(1);
     // 検索結果が0件の場合、リターン
     if (results.length == 0) {
         return;
     }
     var bounds = new google.maps.LatLngBounds();
-    for(var i = 0; i < 5; i++){
+    console.log(tbl);
+    // マーカー設定
+    for(var i = 0; i < restriction_number; i++){
         createMarker({
-            position : results[i].geometry.location,
-            text : results[i].name,
-            map : map
-    });
-    bounds.extend(results[i].geometry.location);
-   }
-   map.fitBounds(bounds);
+             position : results[i].geometry.location,
+             text : results[i].name,
+             map : map
+        });
+        // 一覧に表示する
+        var tr = tbl.insertRow( tbl.rows.length );
+        var td;
+        for(var j = 0; j < id_list.length ; j++){
+            td = tr.insertCell( tr.cells.length );
+            td.id = id_list[j];
+            switch (j) {
+                // No.
+                case 0:
+                    td.appendChild( document.createTextNode(i + 1) );
+                    break;
+                // 店舗・施設
+                case 1:
+                    var place_link = document.createElement('a');
+                    place_link.href = "https://www.google.co.jp/search?q=" + results[i].name;
+                    place_link.innerHTML = results[i].name;
+                    td.appendChild( place_link );
+                    break;
+            }
+        }
+        bounds.extend(results[i].geometry.location);
+    }
+    map.fitBounds(bounds);
 }
 
 // 該当する位置にマーカーを表示
