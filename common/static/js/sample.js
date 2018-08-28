@@ -155,6 +155,7 @@ function result_search(results, status) {
     if (results.length == 0) {
         return;
     }
+    // 境界(Bounding box)のインスタンスを作成する
     var bounds = new google.maps.LatLngBounds();
     console.log(tbl);
     // マーカー設定
@@ -184,9 +185,13 @@ function result_search(results, status) {
                     break;
             }
         }
+        // 境界に位置座標を追加する。
         bounds.extend(results[i].geometry.location);
     }
+    // 境界が見えるように位置座標とズーム値を変更する
     map.fitBounds(bounds);
+    // マップの中心地を現在地に変更する
+    panZoomMap(lat, lng, null)
 }
 
 // 該当する位置にマーカーを表示
@@ -203,6 +208,20 @@ function createMarker(options) {
             infoWnd.open(map, marker);
     });
     return marker;
+}
+
+/**
+* 指定位置を中心に地図を拡大・移動する関数
+*/
+function panZoomMap(lat, lng, zoomNum) {
+  if (lat != null && lng != null) {
+    // 地図の位置座標を絶対的に移動する。
+    map.panTo(new google.maps.LatLng(Number(lat), Number(lng)));
+  }
+  if (zoomNum != null) {
+    // 	ズーム値を設定する。
+    map.setZoom(Number(zoomNum));
+  }
 }
 
 
