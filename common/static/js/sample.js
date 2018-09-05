@@ -14,7 +14,6 @@ var zoom;
 var restriction_number = 5;
 // IDリスト
 var id_list = ["td1", "td2"];
-//現在位置取得
 
 //検索ボタン有効化切り替え
 $(function() {
@@ -179,7 +178,8 @@ function result_search(results, status) {
                 // 店舗・施設
                 case 1:
                     var place_link = document.createElement('a');
-                    place_link.href = "https://www.google.co.jp/search?q=" + results[i].name;
+                    place_link.setAttribute('href', "https://www.google.co.jp/search?q=" + results[i].name),
+                    place_link.setAttribute('target', '_blank'),
                     place_link.innerHTML = results[i].name;
                     td.appendChild( place_link );
                     break;
