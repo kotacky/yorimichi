@@ -19,8 +19,8 @@ var id_list = ["td1", "td2"];
 $(function() {
     // ラジオボタンチェック時に有効化
     $(":radio").on('change', function() {
-        if (document.getElementById("search_btn").disabled == true) {
-            document.getElementById("search_btn").disabled = false;
+        if ($('#search_btn').is(':disabled')) {
+            $('#search_btn').prop('disabled', false);
         }
     });
 });
@@ -84,21 +84,6 @@ function initialize() {
             "maximumAge": 2000,
         }
     );
-}
-
-// 検索結果を受け取る
-function Result_Places(results, status){
-    // Placesが検家に成功したかとマうかをチェック
-    if(status == google.maps.places.PlacesServiceStatus.OK) {
-        for (var i = 0; i < results.length; i++) {
-        // 検索結果の数だけ反復処理を変数placeに格納
-        var place = restriction_number;
-        createMarker({
-            text : place.name,
-            position : place.geometry.location
-        });
-        }
-    }
 }
 
 //初期マップ作成
@@ -223,7 +208,6 @@ function panZoomMap(lat, lng, zoomNum) {
     map.setZoom(Number(zoomNum));
   }
 }
-
 
 // ページ読み込み完了後、Googleマップを表示
 google.maps.event.addDomListener(window, 'load', initialize);
