@@ -162,6 +162,7 @@ function result_search(results, status) {
                     break;
                 // 店舗・施設
                 case 1:
+                    // リンクを設定する
                     var place_link = document.createElement('a');
                     place_link.setAttribute('href', "https://www.google.co.jp/search?q=" + results[i].name),
                     place_link.setAttribute('target', '_blank'),
