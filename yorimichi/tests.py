@@ -22,16 +22,16 @@ class M_CategoryTests(TestCase):
     """
     テスト実行前
     """
-    # テスト用のデータを登録
     def setUp(self):
-        m_Category = M_Category()
+        # テスト用のデータを登録
+        mCategory = M_Category()
         # idは指定しない
-        m_Category.id                = None
-        m_Category.category_id       = self.test_category_id
-        m_Category.category_name     = self.test_category_name
-        m_Category.sub_category_id   = self.test_sub_category_id
-        m_Category.sub_category_name = self.test_sub_category_name
-        m_Category.save()
+        mCategory.id                = None
+        mCategory.category_id       = self.test_category_id
+        mCategory.category_name     = self.test_category_name
+        mCategory.sub_category_id   = self.test_sub_category_id
+        mCategory.sub_category_name = self.test_sub_category_name
+        mCategory.save()
 
     # テストデータを取得
     def find_testData(self):
@@ -57,7 +57,7 @@ class M_CategoryTests(TestCase):
     """ 
     テスト実行後
     """
-    # テスト用に登録したデータを削除
     def tearDown(self):
+        # テスト用に登録したデータを削除
         self.find_testData().delete()
 
