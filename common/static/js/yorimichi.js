@@ -13,7 +13,8 @@ var zoom;
 // 表示件数
 var restriction_number = 5;
 // IDリスト
-var id_list = ["td1", "td2"];
+var id_list = ["td1", "td2", "td3"];
+
 
 //検索ボタン有効化切り替え
 $(function() {
@@ -168,6 +169,15 @@ function result_search(results, status) {
                     place_link.setAttribute('target', '_blank'),
                     place_link.innerHTML = results[i].name;
                     td.appendChild( place_link );
+                    break;
+                 case 2:
+                    //施設の緯度経度と現在位置の距離を算出
+                    var facilitylat = results[i].geometry.location.lat() ;
+                    var facilitylng = results[i].geometry.location.lng() ;
+                    var faclatlng = new google.maps.LatLng( facilitylat , facilitylng ) ;
+                    var distance = google.maps.geometry.spherical.computeDistanceBetween(latlng, faclatlng);
+                    var splitdistance =String(distance).split(["."])
+                    td.appendChild( document.createTextNode(splitdistance[0] + "m") );
                     break;
             }
         }
