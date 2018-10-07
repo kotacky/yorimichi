@@ -121,11 +121,13 @@ function SearchGo() {
             service = new google.maps.places.PlacesService(map);
             // input要素に入力されたキーワードを検索の条件に設定
             var request = {
-                query : array,
-                radius : 5000,
-                location : latlng
+                // types : ['book_store' ,'library']  提供されているサブカテゴリにするならコレを使う
+                // keyword検索は、現状「DBに一つだけ登録されている」状態じゃないと、まともに動かない
+                keyword :  array,
+                location : latlng,
+                rankBy: google.maps.places.RankBy.DISTANCE
             };
-            service.textSearch(request, result_search);
+            service.nearbySearch(request, result_search);
         },
     });
 }
