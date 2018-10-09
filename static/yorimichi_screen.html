@@ -11,7 +11,7 @@
 	<!--<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">-->
 	<link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <!--<script type="text/javascript" src="{{STATIC_URL}}js/jquery-1.11.0.min.js"></script>-->
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDGkTT-OCucXTF5kLkOKTTFKeCC4ljEExE&libraries=places"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDGkTT-OCucXTF5kLkOKTTFKeCC4ljEExE&libraries=places,geometry"></script>
     <script type="text/javascript" src="https://raw.githubusercontent.com/juniskw/django_tools/master/csrf_token_ajax.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script type="text/javascript" src="{% static 'js/yorimichi.js' %}"></script>
@@ -40,6 +40,7 @@
 		<Tr>
 			<Th id="th1">No.</Th>
 			<Th id="th2">店舗・施設</Th>
+			<Th id="th3">距離</Th>
 		</Tr>
 	</table>
 	<br>

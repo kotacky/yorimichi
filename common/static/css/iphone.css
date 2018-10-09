@@ -132,6 +132,20 @@ Th#th2{
 	border-style: solid;
 	border-width: medium;
 }
+Th#th3{
+	text-align: left;
+	font-size: 1.0em;
+	font-weight: medium;
+	padding-right: 10px;
+	padding-left: 10px;
+	width: 70px;
+	height: 40px;
+	background-color: #F4A460;
+	color: #FFF;
+	border-color: #FFF;
+	border-style: solid;
+	border-width: medium;
+}
 
 Td#td1 {
 	font-size: 1.0em;
@@ -145,6 +159,7 @@ Td#td1 {
 	border-style: solid;
 	border-width: medium;
 }
+
 
 Td#td2 {
 	font-size: 1.0em;
@@ -160,6 +175,19 @@ Td#td2 {
 	border-width: medium;
 }
 
+Td#td3 {
+	font-size: 1.0em;
+	font-weight: medium;
+	text-align: left;
+	padding-right: 10px;
+	padding-left: 10px;
+	width: 70px;
+	height: 40px;
+	background-color: #EFF5FB;
+	border-color: #FFF;
+	border-style: solid;
+	border-width: medium;
+}
 /*-------------------------------------*/
 /* フッター */
 /*-------------------------------------*/
