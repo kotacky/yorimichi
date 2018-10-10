@@ -14,6 +14,12 @@ class T_User_Category(Document):
     sub_category_id = fields.StringField(required=True)
     entry_date = fields.DateTimeField(required=True)
 
+class Search_History(Document):
+    id = fields.StringField(required=True)
+    search_place = fields.StringField(required=True)
+    search_time = fields.DateTimeField(required=True)
+    category_name = fields.StringField(required=True)
+
 class ToolInput(EmbeddedDocument):
     id = fields.StringField(required=True)
     type = fields.ListField(fields.DynamicField(null=True))

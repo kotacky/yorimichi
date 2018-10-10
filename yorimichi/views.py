@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 from django.template.response import TemplateResponse
 from rest_framework_mongoengine.viewsets import ModelViewSet as MongoModelViewSet
 from yorimichi.serializers import *
-from yorimichi.models import Tool, M_Category, T_User_Category
+from yorimichi.models import Tool, M_Category, T_User_Category, Search_History
 
 
 def index_view(request):
@@ -34,6 +34,12 @@ class TUserCategoryViewSet(MongoModelViewSet):
     def get_queryset(self):
         return T_User_Category.objects.all()
 
+class SearchHistoryViewSet(MongoModelViewSet):
+    lookup_field = 'id'
+    serializer_class = SearchHistorySerializer
+
+    def get_queryset(self):
+        return Search_History.objects.all()
 
 from rest_framework.decorators import  detail_route
 from rest_framework.response import Response

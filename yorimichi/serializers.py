@@ -1,8 +1,7 @@
 from rest_framework import serializers
 from rest_framework_mongoengine import serializers as mongoserializers
 
-from yorimichi.models import Tool, M_Category, T_User_Category
-
+from yorimichi.models import Tool, M_Category, T_User_Category, Search_History
 
 class ToolSerializer(mongoserializers.DocumentSerializer):
     id = serializers.CharField(read_only=False)
@@ -18,4 +17,9 @@ class MCategorySerializer(mongoserializers.DocumentSerializer):
 class TUserCategorySerializer(mongoserializers.DocumentSerializer):
     class Meta:
         model = T_User_Category
+        fields = '__all__'
+
+class SearchHistorySerializer(mongoserializers.DocumentSerializer):
+    class Meta:
+        model = Search_History
         fields = '__all__'

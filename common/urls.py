@@ -17,6 +17,7 @@ router.register(r'tool', ToolViewSet, r"tool")
 router.register(r'user', UserViewSet, r"user")
 router.register(r'M_Category', MCategoryViewSet, r"M_Category")
 router.register(r'T_User_Category', TUserCategoryViewSet, r"T_User_Category")
+router.register(r'Search_History', SearchHistoryViewSet, r"Search_History")
 
 urlpatterns = [
     # default django admin interface (currently unused)
