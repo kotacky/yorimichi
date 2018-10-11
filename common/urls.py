@@ -37,8 +37,6 @@ urlpatterns = [
     # yorimichiプロジェクトへ
     url(r'yorimichi/', include('yorimichi.urls')),
 
-    # sampleプロジェクトへ
-    url(r'sample/', include('sample.urls')),
 ]
 
 # let django built-in server serve static and media content
