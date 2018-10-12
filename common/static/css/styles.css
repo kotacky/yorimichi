@@ -86,6 +86,11 @@ button#search_btn{
 	border-radius: 10px
 }
 
+button#search_btn[disabled]{
+    background-color: #FFCC66;
+    color: #EEEEEE;
+}
+
 /*-------------------------------------*/
 /* マップ */
 /*-------------------------------------*/
