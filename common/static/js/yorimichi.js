@@ -241,23 +241,23 @@ function panZoomMap(lat, lng, zoomNum) {
     if (status == google.maps.GeocoderStatus.OK) {
       // 結果が帰ってきたら、7番目の配列を取得する
       if (results.length > 0) {
-          // 住所を取得(日本の場合だけ「日本, 」を削除)
+          // 住所を取得(「日本、 」を削除)
           address = results[6].formatted_address.replace('日本、', '');
       }
     } else if (status == google.maps.GeocoderStatus.ERROR) {
-      alert("サーバとの通信時に何らかのエラーが発生！");
+      alert("サーバとの通信時に何らかのエラーが発生しました。");
     } else if (status == google.maps.GeocoderStatus.INVALID_REQUEST) {
-      alert("リクエストに問題アリ！geocode()に渡すGeocoderRequestを確認せよ！！");
+      alert("リクエストに問題があり、エラーが発生しました。");
     } else if (status == google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
-      alert("短時間にクエリを送りすぎ！落ち着いて！！");
+      alert("クエリの上限値を超えたため、エラーが発生しました。");
     } else if (status == google.maps.GeocoderStatus.REQUEST_DENIED) {
-      alert("このページではジオコーダの利用が許可されていない！・・・なぜ！？");
+      alert("このページではジオコーダの利用が許可されていないため、エラーが発生しました。");
     } else if (status == google.maps.GeocoderStatus.UNKNOWN_ERROR) {
-      alert("サーバ側でなんらかのトラブルが発生した模様。再挑戦されたし。");
+      alert("サーバ側でなんらかのトラブルが発生したため、エラーが発生しました。");
     } else if (status == google.maps.GeocoderStatus.ZERO_RESULTS) {
-      alert("見つかりません");
+      alert("存在しない住所のため、見つかりませんでした。");
     } else {
-      alert("えぇ～っと・・、バージョンアップ？");
+      alert("原因不明のエラーが発生しました。");
     }
   });
 }
