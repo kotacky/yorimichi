@@ -8,12 +8,26 @@ var lat;
 var lng;
 // 緯度経度
 var latlng;
+// 住所
+var address;
 // ズーム
 var zoom;
 // 表示件数
 var restriction_number = 5;
 // IDリスト
 var id_list = ["td1", "td2", "td3"];
+
+// cookieID取得用
+var r = document.cookie.split(';');
+r.forEach(function(value) {
+
+    // cookie名と値に分ける
+    var content = value.split('=');
+    // 実際に使用するcookieID
+    var cookieId = content[1];
+    // テスト用で出力(cookieIDを使って運用ができる確認とれたら消す)
+    console.log(cookieId);
+})
 
 
 //検索ボタン有効化切り替え
@@ -48,6 +62,8 @@ function initialize() {
 
             // 位置情報
             latlng = new google.maps.LatLng( lat , lng ) ;
+            // 住所も取得する
+            getAddress(latlng);
 
             // Google Maps作成
             NewMap();
@@ -106,6 +122,7 @@ function NewMap() {
 function SearchGo() {
     // マップ初期化
     NewMap();
+    console.log(address);
     // DBからサブカテゴリを取得
     $.ajax({
         'url':'../api/' + $("input[name='radio_item']:checked").val() + '/search/',
@@ -172,6 +189,7 @@ function result_search(results, status) {
                     place_link.innerHTML = results[i].name;
                     td.appendChild( place_link );
                     break;
+                // 距離
                  case 2:
                     //施設の緯度経度と現在位置の距離を算出
                     var facilitylat = results[i].geometry.location.lat() ;
@@ -220,6 +238,41 @@ function panZoomMap(lat, lng, zoomNum) {
     // 	ズーム値を設定する。
     map.setZoom(Number(zoomNum));
   }
+}
+
+  function getAddress(latlng) {
+
+  // ジオコーダのコンストラクタ
+  var geocoder = new google.maps.Geocoder();
+
+  // geocodeリクエストを実行。
+  // 第１引数はGeocoderRequest。緯度経度⇒住所の変換時はlatLngプロパティを入れればOK。
+  // 第２引数はコールバック関数。
+  geocoder.geocode({
+    latLng: latlng
+  }, function(results, status) {
+    if (status == google.maps.GeocoderStatus.OK) {
+      // 結果が帰ってきたら、7番目の配列を取得する
+      if (results.length > 0) {
+          // 住所を取得(「日本、 」を削除)
+          address = results[6].formatted_address.replace('日本、', '');
+      }
+    } else if (status == google.maps.GeocoderStatus.ERROR) {
+      alert("サーバとの通信時に何らかのエラーが発生しました。");
+    } else if (status == google.maps.GeocoderStatus.INVALID_REQUEST) {
+      alert("リクエストに問題があり、エラーが発生しました。");
+    } else if (status == google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
+      alert("クエリの上限値を超えたため、エラーが発生しました。");
+    } else if (status == google.maps.GeocoderStatus.REQUEST_DENIED) {
+      alert("このページではジオコーダの利用が許可されていないため、エラーが発生しました。");
+    } else if (status == google.maps.GeocoderStatus.UNKNOWN_ERROR) {
+      alert("サーバ側でなんらかのトラブルが発生したため、エラーが発生しました。");
+    } else if (status == google.maps.GeocoderStatus.ZERO_RESULTS) {
+      alert("存在しない住所のため、見つかりませんでした。");
+    } else {
+      alert("原因不明のエラーが発生しました。");
+    }
+  });
 }
 
 // ページ読み込み完了後、Googleマップを表示

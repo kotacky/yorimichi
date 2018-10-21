@@ -85,6 +85,11 @@ button#search_btn{
 	border-radius: 10px
 }
 
+button#search_btn[disabled]{
+    background-color: #FFCC66;
+    color: #EEEEEE;
+}
+
 /*-------------------------------------*/
 /* マップ */
 /*-------------------------------------*/
@@ -108,7 +113,7 @@ table {
 	border-width: medium;
 }
 Th#th1{
-	font-size: 1.7em;
+	font-size: 1.5em;
 	font-weight: medium;
 	padding-right: 10px;
 	padding-left: 10px;
@@ -122,7 +127,7 @@ Th#th1{
 }
 Th#th2{
 	text-align: left;
-	font-size: 1.7em;
+	font-size: 1.5em;
 	font-weight: medium;
 	padding-right: 10px;
 	padding-left: 10px;
@@ -137,11 +142,11 @@ Th#th2{
 
 Th#th3{
 	text-align: left;
-	font-size: 1.7em;
+	font-size: 1.5em;
 	font-weight: medium;
 	padding-right: 10px;
 	padding-left: 10px;
-	width: 140px;
+	width: 80px;
 	height: 50px;
 	background-color: #F4A460;
 	color: #FFF;
@@ -151,7 +156,7 @@ Th#th3{
 }
 
 Td#td1 {
-	font-size: 1.7em;
+	font-size: 1.5em;
 	font-weight: medium;
 	padding-right: 10px;
 	padding-left: 10px;
@@ -164,7 +169,7 @@ Td#td1 {
 }
 
 Td#td2 {
-	font-size: 1.7em;
+	font-size: 1.5em;
 	font-weight: medium;
 	text-align: left;
 	padding-right: 10px;
@@ -178,12 +183,12 @@ Td#td2 {
 }
 
 Td#td3 {
-	font-size: 1.7em;
+	font-size: 1.5em;
 	font-weight: medium;
 	text-align: left;
 	padding-right: 10px;
 	padding-left: 10px;
-	width: 140px;
+	width: 80px;
 	height: 50px;
 	background-color: #EFF5FB;
 	border-color: #FFF;

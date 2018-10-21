@@ -45,7 +45,6 @@ INSTALLED_APPS = [
     'mongoengine.django.mongo_auth',
     'users',
     'yorimichi',
-    'sample',
 ]
 
 MIDDLEWARE_CLASSES = [
