@@ -3,7 +3,8 @@ from django.template.response import TemplateResponse
 from rest_framework_mongoengine.viewsets import ModelViewSet as MongoModelViewSet
 from yorimichi.serializers import *
 from yorimichi.models import Tool, M_Category, T_User_Category, Search_History
-
+from django.http import HttpResponse
+from django.http import JsonResponse
 
 def index_view(request):
     context = {}
@@ -78,3 +79,19 @@ class YorimichiViewSet(MongoModelViewSet):
         print("【YorimichiViewSet.search処理終了】")
         return Response(serializer.data)
 
+class SearchHistoryViewSet(MongoModelViewSet):
+    queryset = Search_History.objects.all()
+    serializer_class = SearchHistorySerializer
+
+    def create_search_history(self,request):
+        print("【create_search_history】 処理開始")
+        print(request.POST)
+        Search_History.objects.create\
+            (user_id=request.POST.get('user_id'),
+             search_place=request.POST.get('search_place'),
+             search_time=request.POST.get('search_time'),
+             category_name=request.POST.get('category_name'))
+
+        print("【create_search_history終了】")
+
+        return HttpResponse("【create_search_history】 検索履歴テーブルの登録完了")
