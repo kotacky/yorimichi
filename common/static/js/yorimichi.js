@@ -17,6 +17,18 @@ var restriction_number = 5;
 // IDリスト
 var id_list = ["td1", "td2", "td3"];
 
+// cookieID取得用
+var r = document.cookie.split(';');
+r.forEach(function(value) {
+
+    // cookie名と値に分ける
+    var content = value.split('=');
+    // 実際に使用するcookieID
+    var cookieId = content[1];
+    // テスト用で出力(cookieIDを使って運用ができる確認とれたら消す)
+    console.log(cookieId);
+})
+
 
 //検索ボタン有効化切り替え
 $(function() {
