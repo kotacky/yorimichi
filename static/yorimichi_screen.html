@@ -10,6 +10,7 @@
 	<!--<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">-->
 	<!--<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">-->
 	<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+	<link rel="stylesheet" href="{% static 'css/config.css' %}">
     <!--<script type="text/javascript" src="{{STATIC_URL}}js/jquery-1.11.0.min.js"></script>-->
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDGkTT-OCucXTF5kLkOKTTFKeCC4ljEExE&libraries=places,geometry"></script>
     <script type="text/javascript" src="https://raw.githubusercontent.com/juniskw/django_tools/master/csrf_token_ajax.js"></script>
@@ -17,6 +18,18 @@
 	<script type="text/javascript" src="{% static 'js/yorimichi.js' %}"></script>
 </head>
 <body>
+    <div id="nav-drawer">
+        <input id="nav-input" type="checkbox" class="nav-unshown">
+        <label id="nav-open" for="nav-input"><span></span></label>
+        <label class="nav-unshown" id="nav-close" for="nav-input"></label>
+        <div id="nav-content">
+			<li>
+			    <a href="#">サブカテゴリ編集</a>
+	 		    <a href="#">検索履歴</a>
+			</li>
+	    </div>
+    </div>
+
 	<p id="product">寄道くん</p>
 	<p id="msg">カテゴリを選択してください。</p>
 	<form id="radio_item" method="post">

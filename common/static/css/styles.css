@@ -39,7 +39,7 @@ body{
 /* フォーム */
 /*-------------------------------------*/
 
-label{
+.label{
 	cursor: pointer;
 	position: relative;
 	display: inline-block;
