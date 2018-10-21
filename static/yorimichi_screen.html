@@ -9,6 +9,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 	<!--<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">-->
 	<!--<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">-->
+	<link rel="stylesheet" href="{% static 'css/config.css' %}">
 	<script type="text/javascript">
 	if (navigator.userAgent.indexOf('iPhone') > 0) {
         document.write('<link rel="stylesheet" href="{% static 'css/iphone.css' %}">');
@@ -25,6 +26,18 @@
 	<script type="text/javascript" src="{% static 'js/yorimichi.js' %}"></script>
 </head>
 <body>
+    <div id="nav-drawer">
+        <input id="nav-input" type="checkbox" class="nav-unshown">
+        <label id="nav-open" for="nav-input"><span></span></label>
+        <label class="nav-unshown" id="nav-close" for="nav-input"></label>
+        <div id="nav-content">
+			<li>
+			    <a href="#">サブカテゴリ編集</a>
+	 		    <a href="#">検索履歴</a>
+			</li>
+	    </div>
+    </div>
+
 	<p id="product">寄道くん</p>
 	<p id="msg">カテゴリを選択してください。</p>
 	<form id="radio_item" method="post">
