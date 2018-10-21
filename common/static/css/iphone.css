@@ -111,12 +111,12 @@ table {
 	border-width: medium;
 }
 Th#th1{
-	font-size: 1.0em;
+	font-size: 0.75em;
 	font-weight: medium;
 	padding-right: 10px;
 	padding-left: 10px;
 	width: 10px;
-	height: 40px;
+	height: 30px;
 	background-color: #F4A460;
 	color: #FFF;
 	border-color: #FFF;
@@ -125,12 +125,12 @@ Th#th1{
 }
 Th#th2{
 	text-align: left;
-	font-size: 1.0em;
+	font-size: 0.75em;
 	font-weight: medium;
 	padding-right: 10px;
 	padding-left: 10px;
 	width: 280px;
-	height: 40px;
+	height: 30px;
 	background-color: #F4A460;
 	color: #FFF;
 	border-color: #FFF;
@@ -139,12 +139,12 @@ Th#th2{
 }
 Th#th3{
 	text-align: left;
-	font-size: 1.0em;
+	font-size: 0.75em;
 	font-weight: medium;
 	padding-right: 10px;
 	padding-left: 10px;
 	width: 70px;
-	height: 40px;
+	height: 30px;
 	background-color: #F4A460;
 	color: #FFF;
 	border-color: #FFF;
@@ -153,12 +153,12 @@ Th#th3{
 }
 
 Td#td1 {
-	font-size: 1.0em;
+	font-size: 0.75em;
 	font-weight: medium;
 	padding-right: 10px;
 	padding-left: 10px;
 	width: 10px;
-	height: 40px;
+	height: 30px;
 	background-color: #EFF5FB;
 	border-color: #FFF;
 	border-style: solid;
@@ -167,13 +167,13 @@ Td#td1 {
 
 
 Td#td2 {
-	font-size: 1.0em;
+	font-size: 0.75em;
 	font-weight: medium;
 	text-align: left;
 	padding-right: 10px;
 	padding-left: 10px;
 	width: 280px;
-	height: 40px;
+	height: 30px;
 	background-color: #EFF5FB;
 	border-color: #FFF;
 	border-style: solid;
@@ -181,13 +181,13 @@ Td#td2 {
 }
 
 Td#td3 {
-	font-size: 1.0em;
+	font-size: 0.75em;
 	font-weight: medium;
 	text-align: left;
 	padding-right: 10px;
 	padding-left: 10px;
 	width: 70px;
-	height: 40px;
+	height: 30px;
 	background-color: #EFF5FB;
 	border-color: #FFF;
 	border-style: solid;

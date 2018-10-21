@@ -189,6 +189,7 @@ function result_search(results, status) {
                     place_link.innerHTML = results[i].name;
                     td.appendChild( place_link );
                     break;
+                // 距離
                  case 2:
                     //施設の緯度経度と現在位置の距離を算出
                     var facilitylat = results[i].geometry.location.lat() ;

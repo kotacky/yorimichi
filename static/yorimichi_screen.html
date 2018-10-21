@@ -9,7 +9,15 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 	<!--<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">-->
 	<!--<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">-->
-	<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+	<script type="text/javascript">
+	if (navigator.userAgent.indexOf('iPhone') > 0) {
+        document.write('<link rel="stylesheet" href="{% static 'css/iphone.css' %}">');
+    } else if (navigator.userAgent.indexOf('Android') > 0) {
+        document.write('<link rel="stylesheet" href="{% static 'css/android.css' %}">');
+    } else {
+        document.write('<link rel="stylesheet" href="{% static 'css/styles.css' %}">');
+    }
+    </script>
     <!--<script type="text/javascript" src="{{STATIC_URL}}js/jquery-1.11.0.min.js"></script>-->
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDGkTT-OCucXTF5kLkOKTTFKeCC4ljEExE&libraries=places,geometry"></script>
     <script type="text/javascript" src="https://raw.githubusercontent.com/juniskw/django_tools/master/csrf_token_ajax.js"></script>
