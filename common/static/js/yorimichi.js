@@ -16,6 +16,8 @@ var zoom;
 var restriction_number = 5;
 // IDリスト
 var id_list = ["td1", "td2", "td3"];
+// 表示する検索結果
+var results = [];
 // 結果一時格納用のリスト
 var resultList = [];
 // GET結果のlength
