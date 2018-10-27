@@ -17,6 +17,10 @@ var restriction_number = 5;
 // IDリスト
 var id_list = ["td1", "td2", "td3"];
 
+var resultList = [];
+var responseLen;
+var results = [];
+
 // cookieID取得用
 var r = document.cookie.split(';');
 r.forEach(function(value) {
@@ -122,6 +126,8 @@ function NewMap() {
 function SearchGo() {
     // マップ初期化
     NewMap();
+    results = []
+    resultList=[]
     console.log(address);
     // DBからサブカテゴリを取得
     $.ajax({
@@ -130,35 +136,57 @@ function SearchGo() {
         'data':{},
         'dataType':'json',
         'success':function(response){
-            var array = [];
-            for(var i in response){
-                array.push(response[i].sub_category_name);
-            }
-            console.log(array)
+            responseLen = response.length;
             service = new google.maps.places.PlacesService(map);
-            // input要素に入力されたキーワードを検索の条件に設定
-            var request = {
-                // types : ['book_store' ,'library']  提供されているサブカテゴリにするならコレを使う
-                // keyword検索は、現状「DBに一つだけ登録されている」状態じゃないと、まともに動かない
-                keyword :  array,
-                location : latlng,
-                rankBy: google.maps.places.RankBy.DISTANCE
-            };
-            service.nearbySearch(request, result_search);
+            for(i=0; i< response.length; i++){
+                // input要素に入力されたキーワードを検索の条件に設定
+                var request = {
+                    keyword :  response[i].sub_category_name,
+                    location : latlng,
+                    rankBy: google.maps.places.RankBy.DISTANCE
+                };
+                service.nearbySearch(request, resultAdd)
+            }
         },
     });
 }
 
+function resultAdd(result, status) {
+    resultList.push(result)
+    if (resultList.length == responseLen) {
+        result_search(resultList)
+    }
+}
+
 // 検索の結果を受け取る
-function result_search(results, status) {
+function result_search(resultList) {
     // テーブル取得、表示、初期化
     var tbl = document.getElementById('place_list');
     tbl.style.display = "";
     while (tbl.rows.length > 1) tbl.deleteRow(1);
     // 検索結果が0件の場合、リターン
-    if (results.length == 0) {
+    if (resultList.length == 0) {
         return;
     }
+    // 整理するために、全ての結果を配列resultsに集約する。また、距離の計算もここで行い、resultsオブジェクト「distance」に持たせる
+    for (i = 0 ; i < resultList.length; i++) {
+        for (j = 0; j < resultList[i].length ; j++) {
+            var distlat = resultList[i][j].geometry.location.lat() ;
+            var distlng = resultList[i][j].geometry.location.lng() ;
+            var distlatlng = new google.maps.LatLng( distlat , distlng ) ;
+            var distance = google.maps.geometry.spherical.computeDistanceBetween(latlng, distlatlng);
+            var splitdistance =String(distance).split(["."])
+            // ついでに、「5km以内の場所」のみを表示対象にする
+            if (splitdistance[0] < 5000) {
+                resultList[i][j].distance = splitdistance[0]
+                results.push(resultList[i][j]);
+            }
+        }
+    }
+
+    // 距離順にソート
+    results.sort(compare);
+
     // 境界(Bounding box)のインスタンスを作成する
     var bounds = new google.maps.LatLngBounds();
     console.log(tbl);
@@ -192,12 +220,7 @@ function result_search(results, status) {
                 // 距離
                  case 2:
                     //施設の緯度経度と現在位置の距離を算出
-                    var facilitylat = results[i].geometry.location.lat() ;
-                    var facilitylng = results[i].geometry.location.lng() ;
-                    var faclatlng = new google.maps.LatLng( facilitylat , facilitylng ) ;
-                    var distance = google.maps.geometry.spherical.computeDistanceBetween(latlng, faclatlng);
-                    var splitdistance =String(distance).split(["."])
-                    td.appendChild( document.createTextNode(splitdistance[0] + "m") );
+                    td.appendChild( document.createTextNode(results[i].distance + "m") );
                     break;
             }
         }
@@ -209,6 +232,23 @@ function result_search(results, status) {
     // マップの中心地を現在地に変更する
     panZoomMap(lat, lng, null)
 }
+
+// 距離ソート用
+
+function compare(a, b) {
+  // Use toUpperCase() to ignore character casing
+  const distA = parseInt(a.distance);
+  const distB = parseInt(b.distance);
+
+  let comparison = 0;
+  if (distA > distB) {
+    comparison = 1;
+  } else if (distA < distB) {
+    comparison = -1;
+  }
+  return comparison;
+}
+
 
 // 該当する位置にマーカーを表示
 function createMarker(options) {
