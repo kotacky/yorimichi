@@ -16,10 +16,10 @@ var zoom;
 var restriction_number = 5;
 // IDリスト
 var id_list = ["td1", "td2", "td3"];
-
+// 結果一時格納用のリスト
 var resultList = [];
+// GET結果のlength
 var responseLen;
-var results = [];
 
 // cookieID取得用
 var r = document.cookie.split(';');
@@ -151,15 +151,16 @@ function SearchGo() {
     });
 }
 
+// 検索の結果を受け取り、配列に格納。全て受け取ったらresult_searchを呼ぶ
 function resultAdd(result, status) {
     resultList.push(result)
     if (resultList.length == responseLen) {
-        result_search(resultList)
+        main_proc(resultList)
     }
 }
 
-// 検索の結果を受け取る
-function result_search(resultList) {
+// 本処理(テーブル表示、マップ系の制御等)
+function main_proc(resultList) {
     // テーブル取得、表示、初期化
     var tbl = document.getElementById('place_list');
     tbl.style.display = "";
