@@ -85,14 +85,6 @@ WSGI_APPLICATION = 'common.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
-# We keep an sqlite3 database just to keep django happy - e.g. django tests will fail with dummy database
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
-
 # We define 2 Mongo databases - default and trying
 MONGODB_DATABASES = {
     "default": {
