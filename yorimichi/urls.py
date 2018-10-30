@@ -24,7 +24,7 @@ yorimichi_search = YorimichiViewSet.as_view({
 })
 
 yorimichi_history = SearchHistoryViewSet.as_view({
-    'post': 'create_search_history'
+    'post': 'create'
 })
 
 urlpatterns = [
