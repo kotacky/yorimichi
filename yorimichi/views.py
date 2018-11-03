@@ -79,7 +79,7 @@ class YorimichiViewSet(MongoModelViewSet):
         print("【YorimichiViewSet.search処理終了】")
         return Response(serializer.data)
 
-class SearchHistoryViewSet(MongoModelViewSet):
+class GetSearchHistoryViewSet(MongoModelViewSet):
     queryset = Search_History.objects.all()
     serializer_class = SearchHistorySerializer
 

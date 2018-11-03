@@ -459,7 +459,7 @@ function openSearchHistory() {
     console.log(document.getElementById("history_list").scrollHeight);
         // ユーザーIDに紐づく検索履歴を取得
         $.ajax({
-        'url':'../api/' + cookieId + '/search_history/',
+        'url':'../api/' + cookieId + '/get_search_history/',
         'type':'GET',
         'data': {},
         'dataType':'json',
