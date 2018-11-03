@@ -24,7 +24,11 @@ yorimichi_search = YorimichiViewSet.as_view({
 })
 
 yorimichi_history = SearchHistoryViewSet.as_view({
-    'post': 'create_search_history'
+    'post': 'create'
+})
+
+search_history = SearchHistoryViewSet.as_view({
+    'get': 'search',
 })
 
 urlpatterns = [
@@ -53,4 +57,7 @@ urlpatterns = [
     # search_historyのCreateを行うAPI
     url(r'^api/create/create_search_history', yorimichi_history, name='yorimichi_history'),
 
+    # Search_HistoryテーブルをユーザーIDを条件に検索を行うAPI
+    # 例) http://127.0.0.1:8000/yorimichi/api/XXXX(user_id)/search
+    url(r'^api/([0-9a-zA-Z]+)/search_history', search_history, name='search_history'),
 ]
