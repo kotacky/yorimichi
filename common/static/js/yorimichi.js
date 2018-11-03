@@ -441,12 +441,10 @@ function makeHistoryTable(h_num, s_place, s_time, s_category) {
                     break;
                 // 検索時間
                 case 1:
-                    // リンクを設定する
                     history_td.appendChild( document.createTextNode(s_time[i]) );
                     break;
-                    // カテゴリ
+                // カテゴリ
                 case 2:
-                    //施設の緯度経度と現在位置の距離を算出
                     history_td.appendChild( document.createTextNode(s_category[i]) );
                     break;
             }
