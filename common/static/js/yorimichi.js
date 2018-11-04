@@ -40,6 +40,8 @@ r.forEach(function(value) {
 })
 
 
+
+
 //検索ボタン有効化切り替え
 $(function() {
     // ラジオボタンチェック時に有効化
@@ -347,6 +349,18 @@ function open_sub_category() {
     document.getElementById("nav-input").checked = false;
     document.getElementById("overlay_sub_category").style.display = "block";
     document.getElementById("popup_sub_category").style.display = "block";
+    // 現在T_User_Categoryに登録中のチェックボックスを取得
+    $.get( '../api/' + cookie_id + '/crud_user_category/')
+    // 結果受け取り
+    .done(function( dataList ) {
+        dataList.forEach(function(data) {
+            $("input[type='checkbox']").map(function() {
+                 if ($(this).parents('table').attr('value') == data.category_id && $(this).val() == data.sub_category_id){
+                    $(this).prop("checked",true);
+                 }
+            })
+        });
+    })
 }
 
 function close_sub_category() {
@@ -543,12 +557,47 @@ function closeSearchHistory() {
 function confirm_sub_category() {
 	// 「OK」時の処理開始 ＋ 確認ダイアログの表示
 	if(window.confirm("サブカテゴリ編集を完了しますか？")){
+	editUserCategory();
 	// TODO: DB関係の実装
 	}
 	// 「キャンセル」時の処理開始
 	else{
 		window.alert("キャンセルされました"); // 警告ダイアログを表示
 	}
+}
+
+function editUserCategory() {
+
+    // T_User_Categoryに存在する、クッキーIDに紐づくデータを全て削除(何故かログは出ない)
+    $.ajax({
+        'url':'../api/' + cookie_id + '/crud_user_category',
+        'type':'DELETE',
+        'data':{},
+        'dataType':'json',
+        'success':function(response){
+            console.log("ユーザIDに紐づくデータを削除")
+        },
+    });
+
+    var data_list = [];
+    var entry_date = dateToFormatString(new Date(), '%YYYY%-%MM%-%DD% %HH%:%mm%:%ss%');
+
+    var $sub_category = $("input[type='checkbox']:checked").map(function() {
+        var data = {
+            'user_id': cookie_id,
+            'category_id': $(this).parents('table').attr('value'),
+            'sub_category_id': $(this).val(),
+            'entry_date': entry_date
+        }
+        data_list.push(data)
+        });
+    console.log(data_list)
+
+    // データを一つずつpostする
+    data_list.forEach(function(data) {
+        $.post( '../api/' + cookie_id + '/crud_user_category', data);
+    });
+
 }
 
 // ページ読み込み完了後、Googleマップを表示

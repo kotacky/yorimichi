@@ -89,3 +89,13 @@ class GetSearchHistoryViewSet(MongoModelViewSet):
         searchHistory = Search_History.objects.all().filter(user_id=args[0]).order_by('-search_time')[:20]
         serializer = self.get_serializer(searchHistory, many=True)
         return Response(serializer.data)
+
+class TUserCategoryViewSet(MongoModelViewSet):
+    lookup_field = 'id'
+    serializer_class = TUserCategorySerializer
+
+    def get_queryset(self):
+        return T_User_Category.objects.all()
+    def delete(self, request,args):
+        T_User_Category.objects.all().filter(user_id=args).delete();
+        return HttpResponse("【T_User_Category】 削除完了")
