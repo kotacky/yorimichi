@@ -31,6 +31,12 @@ search_history = GetSearchHistoryViewSet.as_view({
     'get': 'search',
 })
 
+crud_user_category = TUserCategoryViewSet.as_view({
+    'get': 'list',
+    'post': 'create',
+    'delete': 'delete'
+})
+
 urlpatterns = [
     # common配下のurls.pyと紐づいている
 
@@ -60,4 +66,8 @@ urlpatterns = [
     # Search_HistoryテーブルをユーザーIDを条件に検索を行うAPI
     # 例) http://127.0.0.1:8000/yorimichi/api/XXXX(user_id)/get_search_history
     url(r'^api/([0-9a-zA-Z]+)/get_search_history', search_history, name='search_history'),
+
+    # T_User_Categoryテーブルの編集(削除、登録)を行うAPI
+    url(r'^api/([0-9a-zA-Z]+)/crud_user_category', crud_user_category, name='crud'),
+
 ]
