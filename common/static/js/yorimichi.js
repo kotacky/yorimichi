@@ -349,7 +349,7 @@ function open_sub_category() {
     document.getElementById("popup_sub_category").style.display = "block";
 }
 
-function off_sub_category() {
+function close_sub_category() {
     document.getElementById("overlay_sub_category").style.display = "none";
     document.getElementById("popup_sub_category").style.display = "none";
 }
@@ -537,6 +537,18 @@ function closeSearchHistory() {
     document.getElementById("history_list").scrollTop = 0;
     document.getElementById("history_overlay").style.display = "none";
     document.getElementById("history_popup").style.display = "none";
+}
+
+// サブカテゴリ編集の確認メッセージ
+function confirm_sub_category() {
+	// 「OK」時の処理開始 ＋ 確認ダイアログの表示
+	if(window.confirm("サブカテゴリ編集を完了しますか？")){
+	// TODO: DB関係の実装
+	}
+	// 「キャンセル」時の処理開始
+	else{
+		window.alert("キャンセルされました"); // 警告ダイアログを表示
+	}
 }
 
 // ページ読み込み完了後、Googleマップを表示
