@@ -151,31 +151,41 @@ function SearchGo() {
         console.log("成功！");
     })
 
-    // DBからサブカテゴリを取得
-    $.ajax({
-        'url':'../api/' + $("input[name='radio_item']:checked").val() + '/search/',
-        'type':'GET',
-        'data':{},
-        'dataType':'json',
-        'success':function(response){
-            response_length = response.length;
-            var array = [];
-            for(var i in response){
-                array.push(response[i].sub_category_name);
+    // 現在T_User_Categoryに登録中のカテゴリ、サブカテゴリを取得
+    $.get( '../api/' + cookie_id + '/crud_user_category/')
+    .done(function( data_list ) {
+        var sub_category_id_list = [];
+        data_list.forEach(function(data) {
+            if (data.category_id == $("input[name='radio_item']:checked").val()) {
+                sub_category_id_list.push(data.sub_category_id)
             }
-            console.log(array)
-            service = new google.maps.places.PlacesService(map);
-            for(i=0; i< response.length; i++){
-                // input要素に入力されたキーワードを検索の条件に設定
-                var request = {
-                    keyword :  response[i].sub_category_name,
-                    location : latlng,
-                    rankBy: google.maps.places.RankBy.DISTANCE
-                };
-                service.nearbySearch(request, resultPush)
-            }
-        },
-    });
+        })
+        // DBからサブカテゴリを取得
+        $.ajax({
+            'url':'../api/' + $("input[name='radio_item']:checked").val() + '/search/',
+            'type':'GET',
+            'data':sub_category_id_list,
+            'dataType':'json',
+            'success':function(response){
+                response_length = response.length;
+                var array = [];
+                for(var i in response){
+                    array.push(response[i].sub_category_name);
+                }
+                console.log(array)
+                service = new google.maps.places.PlacesService(map);
+                for(i=0; i< response.length; i++){
+                    // input要素に入力されたキーワードを検索の条件に設定
+                    var request = {
+                        keyword :  response[i].sub_category_name,
+                        location : latlng,
+                        rankBy: google.maps.places.RankBy.DISTANCE
+                    };
+                    service.nearbySearch(request, resultPush)
+                }
+            },
+        });
+    })
 }
 
 // 検索の結果を受け取り、配列に格納。全て受け取ったらresult_searchを呼ぶ
@@ -349,7 +359,7 @@ function open_sub_category() {
     document.getElementById("nav-input").checked = false;
     document.getElementById("overlay_sub_category").style.display = "block";
     document.getElementById("popup_sub_category").style.display = "block";
-    // 現在T_User_Categoryに登録中のチェックボックスを取得
+     // 現在T_User_Categoryに登録中のカテゴリ、サブカテゴリを取得
     $.get( '../api/' + cookie_id + '/crud_user_category/')
     // 結果受け取り
     .done(function( data_list ) {
@@ -584,8 +594,8 @@ function editUserCategory() {
 
     var data_list = [];
     var entry_date = dateToFormatString(new Date(), '%YYYY%-%MM%-%DD% %HH%:%mm%:%ss%');
-
-    var $sub_category = $("input[type='checkbox']:checked").map(function() {
+    // チェックされているチェックボックスのサブカテゴリIDと、その親要素にあたるカテゴリIDを取得
+     $("input[type='checkbox']:checked").map(function() {
         var data = {
             'user_id': cookie_id,
             'category_id': $(this).parents('table').attr('value'),
@@ -593,8 +603,7 @@ function editUserCategory() {
             'entry_date': entry_date
         }
         data_list.push(data)
-        });
-    console.log(data_list)
+    });
 
     // データを一つずつpostする
     data_list.forEach(function(data) {
