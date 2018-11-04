@@ -305,11 +305,6 @@ function open_sub_category() {
     document.getElementById("overlay_sub_category").style.display = "block";
     document.getElementById("popup_sub_category").style.display = "block";
 }
-
-function off_sub_category() {
-    document.getElementById("overlay_sub_category").style.display = "none";
-    document.getElementById("popup_sub_category").style.display = "none";
-}
   
 /**
 * DateTimeを任意のフォーマットへ変換する関数
@@ -489,11 +484,13 @@ function openSearchHistory() {
     })
     document.getElementById("history_popup").style.display = "block";
 }
-// 検索履歴ポップアップのクローズ処理
-function closeSearchHistory() {
+// ポップアップのクローズ処理
+function closePopup() {
     document.getElementById("history_list").scrollTop = 0;
     document.getElementById("history_overlay").style.display = "none";
     document.getElementById("history_popup").style.display = "none";
+    document.getElementById("overlay_sub_category").style.display = "none";
+    document.getElementById("popup_sub_category").style.display = "none";
 }
 
 // ページ読み込み完了後、Googleマップを表示
