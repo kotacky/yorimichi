@@ -17,20 +17,26 @@ var restriction_number = 5;
 // IDリスト
 var id_list = ["td1", "td2", "td3"];
 //クッキーID
-var cookieId;
+var cookie_id;
 // IDリスト
 var history_id_list = ["history_td1", "history_td2", "history_td3"];
+// 表示する検索結果
+var results = [];
+// 結果一時格納用のリスト
+var result_list = [];
+// GET結果のlength
+var response_length;
 
-// cookieID取得用
+// cookie_id取得用
 var r = document.cookie.split(';');
 r.forEach(function(value) {
 
     // cookie名と値に分ける
     var content = value.split('=');
-    // 実際に使用するcookieID
-    cookieId = content[1];
-    // テスト用で出力(cookieIDを使って運用ができる確認とれたら消す)
-    console.log(cookieId);
+    // 実際に使用するcookie_id
+    cookie_id = content[1];
+    // テスト用で出力(cookie_idを使って運用ができる確認とれたら消す)
+    console.log(cookie_id);
 })
 
 
@@ -126,10 +132,12 @@ function NewMap() {
 function SearchGo() {
     // マップ初期化
     NewMap();
-console.log(address);
+    results = []
+    result_list=[]
+    console.log(address);
     // POST用のJSONデータの定義
     var jsondata =  {
-        user_id: cookieId,
+        user_id: cookie_id,
         search_place: address,
         search_time: dateToFormatString(new Date(), '%YYYY%-%MM%-%DD% %HH%:%mm%:%ss%'),
         category_name: $("input[name='radio_item']:checked").attr('id')
@@ -148,38 +156,65 @@ console.log(address);
         'data':{},
         'dataType':'json',
         'success':function(response){
+            response_length = response.length;
             var array = [];
             for(var i in response){
                 array.push(response[i].sub_category_name);
             }
             console.log(array)
             service = new google.maps.places.PlacesService(map);
-            // input要素に入力されたキーワードを検索の条件に設定
-            var request = {
-                // types : ['book_store' ,'library']  提供されているサブカテゴリにするならコレを使う
-                // keyword検索は、現状「DBに一つだけ登録されている」状態じゃないと、まともに動かない
-                keyword :  array,
-                location : latlng,
-                rankBy: google.maps.places.RankBy.DISTANCE
-            };
-            service.nearbySearch(request, result_search);
+            for(i=0; i< response.length; i++){
+                // input要素に入力されたキーワードを検索の条件に設定
+                var request = {
+                    keyword :  response[i].sub_category_name,
+                    location : latlng,
+                    rankBy: google.maps.places.RankBy.DISTANCE
+                };
+                service.nearbySearch(request, resultPush)
+            }
         },
     });
 }
 
+// 検索の結果を受け取り、配列に格納。全て受け取ったらresult_searchを呼ぶ
+function resultPush(result, status) {
+    result_list.push(result)
+    if (result_list.length == response_length) {
+        mainProc(result_list)
+    }
+}
+
 // 検索の結果を受け取る
-function result_search(results, status) {
+function mainProc(result_list) {
     // テーブル取得、表示、初期化
     var tbl = document.getElementById('place_list');
     tbl.style.display = "";
     while (tbl.rows.length > 1) tbl.deleteRow(1);
     // 検索結果が0件の場合、リターン
-    if (results.length == 0) {
+    if (result_list.length == 0) {
         return;
     }
     // 境界(Bounding box)のインスタンスを作成する
     var bounds = new google.maps.LatLngBounds();
     console.log(tbl);
+        // 整理するために、全ての結果を配列resultsに集約する。また、距離の計算もここで行い、resultsオブジェクト「distance」に持たせる
+    for (i = 0 ; i < result_list.length; i++) {
+        for (j = 0; j < result_list[i].length ; j++) {
+            var dist_lat = result_list[i][j].geometry.location.lat() ;
+            var dist_lng = result_list[i][j].geometry.location.lng() ;
+            var dist_latlng = new google.maps.LatLng( dist_lat , dist_lng ) ;
+            var distance = google.maps.geometry.spherical.computeDistanceBetween(latlng, dist_latlng);
+            var split_distance =String(distance).split(["."])
+            // ついでに、「5km以内の場所」のみを表示対象にする
+            if (split_distance[0] < 5000) {
+                result_list[i][j].distance = split_distance[0]
+                results.push(result_list[i][j]);
+            }
+        }
+    }
+     // 距離順にソート
+    results.sort(compare);
+
     // マーカー設定
     for(var i = 0; i < restriction_number; i++){
         createMarker({
@@ -209,13 +244,7 @@ function result_search(results, status) {
                     break;
                 // 距離
                  case 2:
-                    //施設の緯度経度と現在位置の距離を算出
-                    var facilitylat = results[i].geometry.location.lat() ;
-                    var facilitylng = results[i].geometry.location.lng() ;
-                    var faclatlng = new google.maps.LatLng( facilitylat , facilitylng ) ;
-                    var distance = google.maps.geometry.spherical.computeDistanceBetween(latlng, faclatlng);
-                    var splitdistance =String(distance).split(["."])
-                    td.appendChild( document.createTextNode(splitdistance[0] + "m") );
+                    td.appendChild( document.createTextNode(results[i].distance + "m") );
                     break;
             }
         }
@@ -226,6 +255,20 @@ function result_search(results, status) {
     map.fitBounds(bounds);
     // マップの中心地を現在地に変更する
     panZoomMap(lat, lng, null)
+}
+
+// 距離ソート用
+ function compare(a, b) {
+  // Use toUpperCase() to ignore character casing
+  const distA = parseInt(a.distance);
+  const distB = parseInt(b.distance);
+   let comparison = 0;
+  if (distA > distB) {
+    comparison = 1;
+  } else if (distA < distB) {
+    comparison = -1;
+  }
+  return comparison;
 }
 
 // 該当する位置にマーカーを表示
@@ -310,7 +353,7 @@ function off_sub_category() {
     document.getElementById("overlay_sub_category").style.display = "none";
     document.getElementById("popup_sub_category").style.display = "none";
 }
-  
+
 /**
 * DateTimeを任意のフォーマットへ変換する関数
 */
@@ -470,7 +513,7 @@ function openSearchHistory() {
     console.log(document.getElementById("history_list").scrollHeight);
         // ユーザーIDに紐づく検索履歴を取得
         $.ajax({
-        'url':'../api/' + cookieId + '/get_search_history/',
+        'url':'../api/' + cookie_id + '/get_search_history/',
         'type':'GET',
         'data': {},
         'dataType':'json',
