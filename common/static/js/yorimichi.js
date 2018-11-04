@@ -16,6 +16,10 @@ var zoom;
 var restriction_number = 5;
 // IDリスト
 var id_list = ["td1", "td2", "td3"];
+//クッキーID
+var cookie_id;
+// IDリスト
+var history_id_list = ["history_td1", "history_td2", "history_td3"];
 // 表示する検索結果
 var results = [];
 // 結果一時格納用のリスト
@@ -23,16 +27,16 @@ var result_list = [];
 // GET結果のlength
 var response_length;
 
-// cookieID取得用
+// cookie_id取得用
 var r = document.cookie.split(';');
 r.forEach(function(value) {
 
     // cookie名と値に分ける
     var content = value.split('=');
-    // 実際に使用するcookieID
-    var cookieId = content[1];
-    // テスト用で出力(cookieIDを使って運用ができる確認とれたら消す)
-    console.log(cookieId);
+    // 実際に使用するcookie_id
+    cookie_id = content[1];
+    // テスト用で出力(cookie_idを使って運用ができる確認とれたら消す)
+    console.log(cookie_id);
 })
 
 
@@ -131,6 +135,20 @@ function SearchGo() {
     results = []
     result_list=[]
     console.log(address);
+    // POST用のJSONデータの定義
+    var jsondata =  {
+        user_id: cookie_id,
+        search_place: address,
+        search_time: dateToFormatString(new Date(), '%YYYY%-%MM%-%DD% %HH%:%mm%:%ss%'),
+        category_name: $("input[name='radio_item']:checked").attr('id')
+        };
+
+    $.post( '../api/create/create_search_history', jsondata )
+    // 結果受け取り
+    .done(function( data ) {
+        console.log("成功！");
+    })
+
     // DBからサブカテゴリを取得
     $.ajax({
         'url':'../api/' + $("input[name='radio_item']:checked").val() + '/search/',
@@ -139,6 +157,11 @@ function SearchGo() {
         'dataType':'json',
         'success':function(response){
             response_length = response.length;
+            var array = [];
+            for(var i in response){
+                array.push(response[i].sub_category_name);
+            }
+            console.log(array)
             service = new google.maps.places.PlacesService(map);
             for(i=0; i< response.length; i++){
                 // input要素に入力されたキーワードを検索の条件に設定
@@ -161,7 +184,7 @@ function resultPush(result, status) {
     }
 }
 
-// 本処理(テーブル表示、マップ系の制御等)
+// 検索の結果を受け取る
 function mainProc(result_list) {
     // テーブル取得、表示、初期化
     var tbl = document.getElementById('place_list');
@@ -171,7 +194,10 @@ function mainProc(result_list) {
     if (result_list.length == 0) {
         return;
     }
-    // 整理するために、全ての結果を配列resultsに集約する。また、距離の計算もここで行い、resultsオブジェクト「distance」に持たせる
+    // 境界(Bounding box)のインスタンスを作成する
+    var bounds = new google.maps.LatLngBounds();
+    console.log(tbl);
+        // 整理するために、全ての結果を配列resultsに集約する。また、距離の計算もここで行い、resultsオブジェクト「distance」に持たせる
     for (i = 0 ; i < result_list.length; i++) {
         for (j = 0; j < result_list[i].length ; j++) {
             var dist_lat = result_list[i][j].geometry.location.lat() ;
@@ -186,13 +212,9 @@ function mainProc(result_list) {
             }
         }
     }
-
-    // 距離順にソート
+     // 距離順にソート
     results.sort(compare);
 
-    // 境界(Bounding box)のインスタンスを作成する
-    var bounds = new google.maps.LatLngBounds();
-    console.log(tbl);
     // マーカー設定
     for(var i = 0; i < restriction_number; i++){
         createMarker({
@@ -222,7 +244,6 @@ function mainProc(result_list) {
                     break;
                 // 距離
                  case 2:
-                    //施設の緯度経度と現在位置の距離を算出
                     td.appendChild( document.createTextNode(results[i].distance + "m") );
                     break;
             }
@@ -237,13 +258,11 @@ function mainProc(result_list) {
 }
 
 // 距離ソート用
-
-function compare(a, b) {
+ function compare(a, b) {
   // Use toUpperCase() to ignore character casing
   const distA = parseInt(a.distance);
   const distB = parseInt(b.distance);
-
-  let comparison = 0;
+   let comparison = 0;
   if (distA > distB) {
     comparison = 1;
   } else if (distA < distB) {
@@ -251,7 +270,6 @@ function compare(a, b) {
   }
   return comparison;
 }
-
 
 // 該当する位置にマーカーを表示
 function createMarker(options) {
@@ -294,11 +312,18 @@ function panZoomMap(lat, lng, zoomNum) {
   geocoder.geocode({
     latLng: latlng
   }, function(results, status) {
+    console.log(results)
     if (status == google.maps.GeocoderStatus.OK) {
       // 結果が帰ってきたら、7番目の配列を取得する
       if (results.length > 0) {
           // 住所を取得(「日本、 」を削除)
-          address = results[6].formatted_address.replace('日本、', '');
+          for(i=0; i<results.length; i++) {
+            console.log(results[i].types)
+            var array = [ "locality", "political" ];
+            if (array.toString() == results[i].types) {
+                address = results[i].formatted_address.replace('日本、', '');
+            }
+          }
       }
     } else if (status == google.maps.GeocoderStatus.ERROR) {
       alert("サーバとの通信時に何らかのエラーが発生しました。");
@@ -316,6 +341,202 @@ function panZoomMap(lat, lng, zoomNum) {
       alert("原因不明のエラーが発生しました。");
     }
   });
+}
+
+function open_sub_category() {
+    document.getElementById("nav-input").checked = false;
+    document.getElementById("overlay_sub_category").style.display = "block";
+    document.getElementById("popup_sub_category").style.display = "block";
+}
+
+function off_sub_category() {
+    document.getElementById("overlay_sub_category").style.display = "none";
+    document.getElementById("popup_sub_category").style.display = "none";
+}
+
+/**
+* DateTimeを任意のフォーマットへ変換する関数
+*/
+
+function dateToFormatString(date, fmt, locale, pad) {
+    // %fmt% を日付時刻表記に。
+    // 引数
+    //  date:  Dateオブジェクト
+    //  fmt:   フォーマット文字列、%YYYY%年%MM%月%DD%日、など。
+    //  locale:地域指定。デフォルト（入力なし）の場合はja-JP（日本）。現在他に対応しているのはen-US（英語）のみ。
+    //  pad:   パディング（桁数を埋める）文字列。デフォルト（入力なし）の場合は0。
+    // 例：2016年03月02日15時24分09秒
+    // %YYYY%:4桁年（2016）
+    // %YY%:2桁年（16）
+    // %MMMM%:月の長い表記、日本語では数字のみ、英語ではMarchなど（3）
+    // %MMM%:月の短い表記、日本語では数字のみ、英語ではMar.など（3）
+    // %MM%:2桁月（03）
+    // %M%:月（3）
+    // %DD%:2桁日（02）
+    // %D%:日（2）
+    // %HH%:2桁で表した24時間表記の時（15）
+    // %H%:24時間表記の時（15）
+    // %h%:2桁で表した12時間表記の時（03）
+    // %h%:12時間表記の時（3）
+    // %A%:AM/PM表記（PM）
+    // %A%:午前/午後表記（午後）
+    // %mm%:2桁分（24）
+    // %m%:分（24）
+    // %ss%:2桁秒（09）
+    // %s%:秒（9）
+    // %W%:曜日の長い表記（水曜日）
+    // %w%:曜日の短い表記（水）
+    var padding = function(n, d, p) {
+        p = p || '0';
+        return (p.repeat(d) + n).slice(-d);
+    };
+    var DEFAULT_LOCALE = 'ja-JP';
+    var getDataByLocale = function(locale, obj, param) {
+        var array = obj[locale] || obj[DEFAULT_LOCALE];
+        return array[param];
+    };
+    var format = {
+        'YYYY': function() { return padding(date.getFullYear(), 4, pad); },
+        'YY': function() { return padding(date.getFullYear() % 100, 2, pad); },
+        'MMMM': function(locale) {
+            var month = {
+                'ja-JP': ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
+                'en-US': ['January', 'February', 'March', 'April', 'May', 'June',
+                          'July', 'August', 'September', 'October', 'November', 'December'],
+            };
+            return getDataByLocale(locale, month, date.getMonth());
+        },
+        'MMM': function(locale) {
+            var month = {
+                'ja-JP': ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
+                'en-US': ['Jan.', 'Feb.', 'Mar.', 'Apr.', 'May', 'June',
+                          'July', 'Aug.', 'Sept.', 'Oct.', 'Nov.', 'Dec.'],
+            };
+            return getDataByLocale(locale, month, date.getMonth());
+        },
+        'MM': function() { return padding(date.getMonth()+1, 2, pad); },
+        'M': function() { return date.getMonth()+1; },
+        'DD': function() { return padding(date.getDate(), 2, pad); },
+        'D': function() { return date.getDate(); },
+        'HH': function() { return padding(date.getHours(), 2, pad); },
+        'H': function() { return date.getHours(); },
+        'hh': function() { return padding(date.getHours() % 12, 2, pad); },
+        'h': function() { return date.getHours() % 12; },
+        'mm': function() { return padding(date.getMinutes(), 2, pad); },
+        'm': function() { return date.getMinutes(); },
+        'ss': function() { return padding(date.getSeconds(), 2, pad); },
+        's': function() { return date.getSeconds(); },
+        'A': function() {
+            return date.getHours() < 12 ? 'AM' : 'PM';
+        },
+        'a': function(locale) {
+            var ampm = {
+                'ja-JP': ['午前', '午後'],
+                'en-US': ['am', 'pm'],
+            };
+            return getDataByLocale(locale, ampm, date.getHours() < 12 ? 0 : 1);
+        },
+        'W': function(locale) {
+            var weekday = {
+                'ja-JP': ['日曜日', '月曜日', '火曜日', '水曜日', '木曜日', '金曜日', '土曜日'],
+                'en-US': ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+            };
+            return getDataByLocale(locale, weekday, date.getDay());
+        },
+        'w': function(locale) {
+            var weekday = {
+                'ja-JP': ['日', '月', '火', '水', '木', '金', '土'],
+                'en-US':  ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'],
+            };
+            return getDataByLocale(locale, weekday, date.getDay());
+        },
+    };
+    var fmtstr = ['']; // %%（%として出力される）用に空文字をセット。
+    Object.keys(format).forEach(function(key) {
+        fmtstr.push(key); // ['', 'YYYY', 'YY', 'MMMM',... 'W', 'w']のような配列が生成される。
+    })
+    var re = new RegExp('%(' + fmtstr.join('|') + ')%', 'g');
+    // /%(|YYYY|YY|MMMM|...W|w)%/g のような正規表現が生成される。
+    var replaceFn = function(match, fmt) {
+    // match には%YYYY%などのマッチした文字列が、fmtにはYYYYなどの%を除くフォーマット文字列が入る。
+        if(fmt === '') {
+            return '%';
+        }
+        var func = format[fmt];
+        // fmtがYYYYなら、format['YYYY']がfuncに代入される。つまり、
+        // function() { return padding(date.getFullYear(), 4, pad); }という関数が代入される。
+        if(func === undefined) {
+            //存在しないフォーマット
+            return match;
+        }
+        return func(locale);
+    };
+    return fmt.replace(re, replaceFn);
+}
+
+// 検索履歴をポップアップに表示する
+function makeHistoryTable(h_num, s_place, s_time, s_category) {
+    // テーブル取得、表示、初期化
+    var history_tbl = document.getElementById('history');
+    while (history_tbl.rows.length > 1) history_tbl.deleteRow(1);
+    console.log(history_tbl);
+    for(var i = 0; i < h_num ; i++){
+        // 一覧に表示する
+        var history_tr = history_tbl.insertRow( history_tbl.rows.length );
+        var history_td;
+        for(var j = 0; j < history_id_list.length ; j++){
+            history_td = history_tr.insertCell( history_tr.cells.length );
+            history_td.id = history_id_list[j];
+            switch (j) {
+                // 検索場所
+                case 0:
+                    history_td.appendChild( document.createTextNode(s_place[i]) );
+                    console.log(history_tbl);
+                    break;
+                // 検索時間
+                case 1:
+                    history_td.appendChild( document.createTextNode(s_time[i]) );
+                    break;
+                // カテゴリ
+                case 2:
+                    history_td.appendChild( document.createTextNode(s_category[i]) );
+                    break;
+            }
+        }
+    }
+}
+
+// 検索履歴取得処理
+function openSearchHistory() {
+    document.getElementById("nav-input").checked = false;
+    document.getElementById("history_overlay").style.display = "block";
+    console.log(document.getElementById("history_list").scrollHeight);
+        // ユーザーIDに紐づく検索履歴を取得
+        $.ajax({
+        'url':'../api/' + cookie_id + '/get_search_history/',
+        'type':'GET',
+        'data': {},
+        'dataType':'json',
+        'success':function(response){
+            var array_history_place = [];
+            var array_history_time = [];
+            var array_history_category = [];
+            var history_num = response.length
+            for(var i in response){
+                array_history_place.push(response[i].search_place);
+                array_history_time.push(response[i].search_time.replace("T"," "));
+                array_history_category.push(response[i].category_name);
+            }
+            makeHistoryTable(history_num, array_history_place, array_history_time, array_history_category)
+        }
+    })
+    document.getElementById("history_popup").style.display = "block";
+}
+// 検索履歴ポップアップのクローズ処理
+function closeSearchHistory() {
+    document.getElementById("history_list").scrollTop = 0;
+    document.getElementById("history_overlay").style.display = "none";
+    document.getElementById("history_popup").style.display = "none";
 }
 
 // ページ読み込み完了後、Googleマップを表示
