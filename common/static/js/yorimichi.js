@@ -18,6 +18,8 @@ var restriction_number = 5;
 var id_list = ["td1", "td2", "td3"];
 //クッキーID
 var cookieId;
+// IDリスト
+var history_id_list = ["history_td1", "history_td2", "history_td3"];
 
 // cookieID取得用
 var r = document.cookie.split(';');
@@ -416,6 +418,71 @@ function dateToFormatString(date, fmt, locale, pad) {
         return func(locale);
     };
     return fmt.replace(re, replaceFn);
+}
+
+// 検索履歴をポップアップに表示する
+function makeHistoryTable(h_num, s_place, s_time, s_category) {
+    // テーブル取得、表示、初期化
+    var history_tbl = document.getElementById('history');
+    while (history_tbl.rows.length > 1) history_tbl.deleteRow(1);
+    console.log(history_tbl);
+    for(var i = 0; i < h_num ; i++){
+        // 一覧に表示する
+        var history_tr = history_tbl.insertRow( history_tbl.rows.length );
+        var history_td;
+        for(var j = 0; j < history_id_list.length ; j++){
+            history_td = history_tr.insertCell( history_tr.cells.length );
+            history_td.id = history_id_list[j];
+            switch (j) {
+                // 検索場所
+                case 0:
+                    history_td.appendChild( document.createTextNode(s_place[i]) );
+                    console.log(history_tbl);
+                    break;
+                // 検索時間
+                case 1:
+                    history_td.appendChild( document.createTextNode(s_time[i]) );
+                    break;
+                // カテゴリ
+                case 2:
+                    history_td.appendChild( document.createTextNode(s_category[i]) );
+                    break;
+            }
+        }
+    }
+}
+
+// 検索履歴取得処理
+function openSearchHistory() {
+    document.getElementById("nav-input").checked = false;
+    document.getElementById("history_overlay").style.display = "block";
+    console.log(document.getElementById("history_list").scrollHeight);
+        // ユーザーIDに紐づく検索履歴を取得
+        $.ajax({
+        'url':'../api/' + cookieId + '/get_search_history/',
+        'type':'GET',
+        'data': {},
+        'dataType':'json',
+        'success':function(response){
+            var array_history_place = [];
+            var array_history_time = [];
+            var array_history_category = [];
+            var history_num = response.length
+            for(var i in response){
+                array_history_place.push(response[i].search_place);
+                array_history_time.push(response[i].search_time.replace("T"," "));
+                array_history_category.push(response[i].category_name);
+            }
+            makeHistoryTable(history_num, array_history_place, array_history_time, array_history_category)
+        }
+    })
+    document.getElementById("history_popup").style.display = "block";
+}
+// 検索履歴ポップアップのクローズ処理
+function closeSearchHistory() {
+    document.getElementById("history_list").scrollTop = 0;
+    document.getElementById("history_overlay").style.display = "none";
+    document.getElementById("history_popup").style.display = "none";
 }
 
 // ページ読み込み完了後、Googleマップを表示
