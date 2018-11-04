@@ -1,0 +1,138 @@
+﻿@charset "utf-8";
+
+/*-------------------------------------*/
+
+#history_pop_title{
+    font-size: 1.5em;
+	background: #FFF;
+	font-family: 'Lucida Grande','Hiragino Kaku Gothic ProN', 'ヒラギノ角ゴ ProN W3', Meiryo, メイリオ, sans-serif;
+	margin: 7px;
+}
+
+#history_overlay {
+    position: fixed;
+    display: none;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 2;
+    cursor: pointer;
+}
+
+#history_popup {
+    display: none;
+    background:#fff;
+    margin:2px;
+    padding:10px;
+
+    top:5%;
+    left:4%;
+    width:85%;
+    height:85%;
+
+    position:fixed;
+    z-index:1000;
+}
+
+#history_list {
+    background:#fff;
+    margin:8px;
+    padding:6px;
+
+    top: 5%;
+    left:10%;
+    width:90%;
+    height:85%;
+    overflow: auto;
+}
+
+#history_close{
+    font-size: 1.0em;
+	background: #FFF;
+	font-family: 'Lucida Grande','Hiragino Kaku Gothic ProN', 'ヒラギノ角ゴ ProN W3', Meiryo, メイリオ, sans-serif;
+}
+
+#history_footer{
+    margin:20px;
+}
+
+#history{
+	margin-left: auto;
+	margin-right: auto;
+	border-width: 1px;
+	background: #FFF;
+	border-color: #FFF;
+	border-style: solid;
+	border-width: medium;
+}
+
+#history_th1{
+	font-size: 0.5em;
+	font-weight: medium;
+	width: 95px;
+	height: 25px;
+	background-color: #F4A460;
+	color: #FFF;
+	border-color: #FFF;
+	border-style: solid;
+	border-width: medium;
+}
+#history_th2{
+	font-size: 0.5em;
+	font-weight: medium;
+	width: 95px;
+	height: 25px;
+	background-color: #F4A460;
+	color: #FFF;
+	border-color: #FFF;
+	border-style: solid;
+	border-width: medium;
+}
+#history_th3{
+	font-size: 0.5em;
+	font-weight: medium;
+	width: 55px;
+	height: 25px;
+	background-color: #F4A460;
+	color: #FFF;
+	border-color: #FFF;
+	border-style: solid;
+	border-width: medium;
+}
+
+#history_td1 {
+	font-size: 0.5em;
+	font-weight: medium;
+	width: 95px;
+	height: 25px;
+	background-color: #EFF5FB;
+	border-color: #FFF;
+	border-style: solid;
+	border-width: medium;
+}
+
+#history_td2 {
+	font-size: 0.5em;
+	font-weight: medium;
+	width: 95px;
+	height: 25px;
+	background-color: #EFF5FB;
+	border-color: #FFF;
+	border-style: solid;
+	border-width: medium;
+}
+
+#history_td3 {
+	font-size: 0.5em;
+	font-weight: medium;
+	width: 55px;
+	height: 25px;
+	background-color: #EFF5FB;
+	border-color: #FFF;
+	border-style: solid;
+	border-width: medium;
+}
