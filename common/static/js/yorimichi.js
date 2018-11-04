@@ -561,7 +561,7 @@ function confirm_sub_category() {
 	// 「OK」時の処理開始 ＋ 確認ダイアログの表示
 	if(window.confirm("サブカテゴリ編集を完了しますか？")){
 	editUserCategory();
-	// TODO: DB関係の実装
+	close_sub_category()
 	}
 	// 「キャンセル」時の処理開始
 	else{
