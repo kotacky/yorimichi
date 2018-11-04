@@ -300,6 +300,17 @@ function panZoomMap(lat, lng, zoomNum) {
   });
 }
 
+function open_sub_category() {
+    document.getElementById("nav-input").checked = false;
+    document.getElementById("overlay_sub_category").style.display = "block";
+    document.getElementById("popup_sub_category").style.display = "block";
+}
+
+function off_sub_category() {
+    document.getElementById("overlay_sub_category").style.display = "none";
+    document.getElementById("popup_sub_category").style.display = "none";
+}
+  
 /**
 * DateTimeを任意のフォーマットへ変換する関数
 */
