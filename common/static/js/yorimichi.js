@@ -275,5 +275,16 @@ function panZoomMap(lat, lng, zoomNum) {
   });
 }
 
+function open_sub_category() {
+    document.getElementById("nav-input").checked = false;
+    document.getElementById("overlay_sub_category").style.display = "block";
+    document.getElementById("popup_sub_category").style.display = "block";
+}
+
+function off_sub_category() {
+    document.getElementById("overlay_sub_category").style.display = "none";
+    document.getElementById("popup_sub_category").style.display = "none";
+}
+
 // ページ読み込み完了後、Googleマップを表示
 google.maps.event.addDomListener(window, 'load', initialize);
