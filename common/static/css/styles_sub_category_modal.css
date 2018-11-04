@@ -36,6 +36,17 @@
 
     position:fixed;
     z-index:1000;
+}
+
+#sub_category_list {
+    background:#fff;
+    margin:5px;
+    padding:15px;
+
+    top: 5%;
+    left:10%;
+    width:92%;
+    height:70%;
     overflow: auto;
 }
 
@@ -47,22 +58,18 @@
 }
 
 #amusement_table {
-    position: relative;
     text-align: left;
 }
 
 #gourmet_table {
-    position: relative;
     text-align: left;
 }
 
 #sport_table {
-    position: relative;
     text-align: left;
 }
 
 #shopping_table {
-    position: relative;
     text-align: left;
 }
 

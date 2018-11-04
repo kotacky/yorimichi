@@ -357,6 +357,7 @@ function panZoomMap(lat, lng, zoomNum) {
   });
 }
 
+// サブカテゴリ編集ポップアップ表示
 function open_sub_category() {
     document.getElementById("nav-input").checked = false;
     document.getElementById("overlay_sub_category").style.display = "block";
@@ -378,7 +379,9 @@ function open_sub_category() {
     })
 }
 
+// サブカテゴリ編集ポップアップクローズ
 function close_sub_category() {
+    document.getElementById("sub_category_list").scrollTop = 0;
     document.getElementById("overlay_sub_category").style.display = "none";
     document.getElementById("popup_sub_category").style.display = "none";
 }
