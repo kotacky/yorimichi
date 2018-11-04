@@ -71,14 +71,10 @@ class YorimichiViewSet(MongoModelViewSet):
     # @detail_routeを使用して、独自のsearchアクションを作成
     @detail_route()
     def search(self, request, *args, **kwargs):
-        sub_category_id_list = []
-        print(request.body)
-        for item in request.body:
-            sub_category_id_list.append(item)
-        print(sub_category_id_list)
+
         print("【YorimichiViewSet.search処理開始】")
         print("【検索条件】category_id = " + repr(args[0]))
-        mCategory = M_Category.objects.all().filter(category_id=args[0]).filter(sub_category_id_list)
+        mCategory = M_Category.objects.all().filter(category_id=args[0], sub_category_id__in=request.GET.getlist('query[]'))
         serializer = self.get_serializer(mCategory, many=True)
         print("【M_Categoryテーブル取得結果】" + repr(serializer.data))
         print("【YorimichiViewSet.search処理終了】")

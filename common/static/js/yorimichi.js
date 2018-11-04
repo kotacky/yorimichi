@@ -164,7 +164,9 @@ function SearchGo() {
         $.ajax({
             'url':'../api/' + $("input[name='radio_item']:checked").val() + '/search/',
             'type':'GET',
-            'data':sub_category_id_list,
+            'data':{
+            query:sub_category_id_list
+            },
             'dataType':'json',
             'success':function(response){
                 response_length = response.length;
