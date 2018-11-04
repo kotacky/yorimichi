@@ -1,0 +1,144 @@
+﻿@charset "utf-8";
+
+/*-------------------------------------*/
+
+#history_pop_title{
+    font-size: 2.3em;
+	background: #FFF;
+	font-family: 'Lucida Grande','Hiragino Kaku Gothic ProN', 'ヒラギノ角ゴ ProN W3', Meiryo, メイリオ, sans-serif;
+	margin: 10px;
+}
+
+#history_overlay {
+    position: fixed;
+    display: none;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 2;
+    cursor: pointer;
+}
+
+#history_popup {
+    display: none;
+    background:#fff;
+    margin:10px;
+    padding:20px;
+
+    top:5%;
+    left:10%;
+    width:70%;
+    height:80%;
+
+    position:fixed;
+    z-index:1000;
+}
+
+#history_list {
+    background:#fff;
+    margin:5px;
+    padding:15px;
+
+    top: 5%;
+    left:10%;
+    width:92%;
+    height:70%;
+    overflow: auto;
+}
+
+#history_close{
+    font-size: 1.5em;
+	background: #FFF;
+	font-family: 'Lucida Grande','Hiragino Kaku Gothic ProN', 'ヒラギノ角ゴ ProN W3', Meiryo, メイリオ, sans-serif;
+}
+
+#history_footer{
+    margin:30px;
+}
+
+#history{
+	margin-left: auto;
+	margin-right: auto;
+	border-width: 5px;
+	background: #FFF;
+	border-color: #FFF;
+	border-style: solid;
+	border-width: medium;
+}
+
+#history_th1{
+	font-size: 1.0em;
+	padding-right: 5px;
+	padding-left: 5px;
+	width: 200px;
+	height: 40px;
+	background-color: #F4A460;
+	color: #FFF;
+	border-color: #FFF;
+	border-style: solid;
+	border-width: medium;
+}
+#history_th2{
+	font-size: 1.0em;
+	padding-right: 10px;
+	padding-left: 10px;
+	width: 200px;
+	height: 40px;
+	background-color: #F4A460;
+	color: #FFF;
+	border-color: #FFF;
+	border-style: solid;
+	border-width: medium;
+}
+#history_th3{
+	font-size: 1.0em;
+	padding-right: 10px;
+	padding-left: 10px;
+	width: 100px;
+	height: 40px;
+	background-color: #F4A460;
+	color: #FFF;
+	border-color: #FFF;
+	border-style: solid;
+	border-width: medium;
+}
+
+#history_td1 {
+	font-size: 1.0em;
+	padding-right: 5px;
+	padding-left: 5px;
+	width: 200px;
+	height: 40px;
+	background-color: #EFF5FB;
+	border-color: #FFF;
+	border-style: solid;
+	border-width: medium;
+}
+
+#history_td2 {
+	font-size: 1.0em;
+	padding-right: 10px;
+	padding-left: 10px;
+	width: 200px;
+	height: 40px;
+	background-color: #EFF5FB;
+	border-color: #FFF;
+	border-style: solid;
+	border-width: medium;
+}
+
+#history_td3 {
+	font-size: 1.0em;
+	padding-right: 10px;
+	padding-left: 10px;
+	width:  100px;
+	height: 40px;
+	background-color: #EFF5FB;
+	border-color: #FFF;
+	border-style: solid;
+	border-width: medium;
+}

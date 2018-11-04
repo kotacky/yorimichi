@@ -14,12 +14,15 @@
 	if (navigator.userAgent.indexOf('iPhone') > 0) {
         document.write('<link rel="stylesheet" href="{% static 'css/iphone.css' %}">');
         document.write('<link rel="stylesheet" href="{% static 'css/styles_sub_category_modal.css' %}">');
+        document.write('<link rel="stylesheet" href="{% static 'css/iphone_search_history.css' %}">');
     } else if (navigator.userAgent.indexOf('Android') > 0) {
         document.write('<link rel="stylesheet" href="{% static 'css/android.css' %}">');
         document.write('<link rel="stylesheet" href="{% static 'css/styles_sub_category_modal.css' %}">');
+        document.write('<link rel="stylesheet" href="{% static 'css/android_search_history.css' %}">');
     } else {
         document.write('<link rel="stylesheet" href="{% static 'css/styles.css' %}">');
         document.write('<link rel="stylesheet" href="{% static 'css/styles_sub_category_modal.css' %}">');
+        document.write('<link rel="stylesheet" href="{% static 'css/styles_search_history.css' %}">');
     }
     </script>
     <!--<script type="text/javascript" src="{{STATIC_URL}}js/jquery-1.11.0.min.js"></script>-->
@@ -36,9 +39,25 @@
         <div id="nav-content">
 			<li>
 			    <a href="#" onclick="open_sub_category()">サブカテゴリ編集</a>
-	 		    <a href="#">検索履歴</a>
+	 		    <a href="#" onclick="openSearchHistory()" >検索履歴</a>
 			</li>
 	    </div>
+    </div>
+	<div id="history_overlay" onclick="closeSearchHistory()"></div>
+	<div id="history_popup">
+		<p id="history_pop_title">検索履歴一覧</p>
+		<div id="history_list">
+			<table id="history" border="brwsr1">
+				<Tr>
+					<Th id="history_th1">検索場所</Th>
+					<Th id="history_th2">検索時間</Th>
+					<Th id="history_th3">カテゴリ</Th>
+				</Tr>
+			</table>
+		</div>
+		<p id="history_footer">
+        	<a href="#openlocation" id="history_close" onclick="closeSearchHistory()">閉じる</a>
+		</p>
     </div>
 
 	<div id="overlay_sub_category"></div>
