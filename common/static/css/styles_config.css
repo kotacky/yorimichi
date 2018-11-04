@@ -83,6 +83,14 @@
     z-index: 2;
 }
 
+#select_sub_category {
+    margin-top : 20px
+}
+
+#select_search_history {
+    margin-top : 20px
+}
+
 /*チェック時にカバー及び中身表示*/
 #nav-input:checked ~ #nav-close {
     display: block;

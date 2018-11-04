@@ -9,18 +9,20 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 	<!--<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">-->
 	<!--<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">-->
-	<link rel="stylesheet" href="{% static 'css/config.css' %}">
 	<script type="text/javascript">
 	if (navigator.userAgent.indexOf('iPhone') > 0) {
         document.write('<link rel="stylesheet" href="{% static 'css/iphone.css' %}">');
+        document.write('<link rel="stylesheet" href="{% static 'css/iphone_config.css' %}">');
         document.write('<link rel="stylesheet" href="{% static 'css/styles_sub_category_modal.css' %}">');
         document.write('<link rel="stylesheet" href="{% static 'css/iphone_search_history.css' %}">');
     } else if (navigator.userAgent.indexOf('Android') > 0) {
         document.write('<link rel="stylesheet" href="{% static 'css/android.css' %}">');
+        document.write('<link rel="stylesheet" href="{% static 'css/android_config.css' %}">');
         document.write('<link rel="stylesheet" href="{% static 'css/styles_sub_category_modal.css' %}">');
         document.write('<link rel="stylesheet" href="{% static 'css/android_search_history.css' %}">');
     } else {
         document.write('<link rel="stylesheet" href="{% static 'css/styles.css' %}">');
+        document.write('<link rel="stylesheet" href="{% static 'css/styles_config.css' %}">');
         document.write('<link rel="stylesheet" href="{% static 'css/styles_sub_category_modal.css' %}">');
         document.write('<link rel="stylesheet" href="{% static 'css/styles_search_history.css' %}">');
     }
@@ -38,12 +40,12 @@
         <label class="nav-unshown" id="nav-close" for="nav-input"></label>
         <div id="nav-content">
 			<li>
-			    <a href="#" onclick="open_sub_category()">サブカテゴリ編集</a>
-	 		    <a href="#" onclick="openSearchHistory()" >検索履歴</a>
+			    <a id="select_sub_category" href="#" onclick="open_sub_category()">サブカテゴリ編集</a>
+	 		    <a id="select_search_history" href="#" onclick="openSearchHistory()" >検索履歴</a>
 			</li>
 	    </div>
     </div>
-	<div id="history_overlay" onclick="closeSearchHistory()"></div>
+	<div id="history_overlay" onclick="closePopup()"></div>
 	<div id="history_popup">
 		<p id="history_pop_title">検索履歴一覧</p>
 		<div id="history_list">
@@ -56,19 +58,17 @@
 			</table>
 		</div>
 		<p id="history_footer">
-        	<a href="#openlocation" id="history_close" onclick="closeSearchHistory()">閉じる</a>
+        	<a href="#openlocation" id="history_close" onclick="closePopup()">閉じる</a>
 		</p>
     </div>
-
-	<div id="overlay_sub_category"></div>
+	<div id="overlay_sub_category" onclick="closePopup()"></div>
 	<div id="popup_sub_category">
 		<p id="pop_sub_category_title">サブカテゴリ編集</p>
 		<div id="sub_category">
 		</div>
 		<br>
-        <a href="#openlocation" id="close_sub_category" onclick="off_sub_category()">閉じる</a>
+        <a href="#openlocation" id="close_sub_category" onclick="closePopup()">閉じる</a>
     </div>
-	</div>
 
 
 	<p id="product">寄道くん</p>
