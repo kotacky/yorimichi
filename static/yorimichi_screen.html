@@ -13,12 +13,15 @@
 	<script type="text/javascript">
 	if (navigator.userAgent.indexOf('iPhone') > 0) {
         document.write('<link rel="stylesheet" href="{% static 'css/iphone.css' %}">');
+        document.write('<link rel="stylesheet" href="{% static 'css/styles_sub_category_modal.css' %}">');
         document.write('<link rel="stylesheet" href="{% static 'css/iphone_search_history.css' %}">');
     } else if (navigator.userAgent.indexOf('Android') > 0) {
         document.write('<link rel="stylesheet" href="{% static 'css/android.css' %}">');
+        document.write('<link rel="stylesheet" href="{% static 'css/styles_sub_category_modal.css' %}">');
         document.write('<link rel="stylesheet" href="{% static 'css/android_search_history.css' %}">');
     } else {
         document.write('<link rel="stylesheet" href="{% static 'css/styles.css' %}">');
+        document.write('<link rel="stylesheet" href="{% static 'css/styles_sub_category_modal.css' %}">');
         document.write('<link rel="stylesheet" href="{% static 'css/styles_search_history.css' %}">');
     }
     </script>
@@ -35,7 +38,7 @@
         <label class="nav-unshown" id="nav-close" for="nav-input"></label>
         <div id="nav-content">
 			<li>
-			    <a href="#">サブカテゴリ編集</a>
+			    <a href="#" onclick="open_sub_category()">サブカテゴリ編集</a>
 	 		    <a href="#" onclick="openSearchHistory()" >検索履歴</a>
 			</li>
 	    </div>
@@ -56,6 +59,17 @@
         	<a href="#openlocation" id="history_close" onclick="closeSearchHistory()">閉じる</a>
 		</p>
     </div>
+
+	<div id="overlay_sub_category"></div>
+	<div id="popup_sub_category">
+		<p id="pop_sub_category_title">サブカテゴリ編集</p>
+		<div id="sub_category">
+		</div>
+		<br>
+        <a href="#openlocation" id="close_sub_category" onclick="off_sub_category()">閉じる</a>
+    </div>
+	</div>
+
 
 	<p id="product">寄道くん</p>
 	<p id="msg">カテゴリを選択してください。</p>
@@ -86,6 +100,7 @@
 	<br>
 	<div id="footer">
 		<p id="copyright">Copyright (c) training_scrum Inc. All Rights Reserved.</p>
+	</div>
 	</div>
 </body>
 </html>
