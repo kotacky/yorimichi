@@ -2,6 +2,7 @@
 #nav-drawer {
   position: relative;
   float: right;
+  font-size: 100%;
 }
 
 /*チェックボックス非表示*/
@@ -56,7 +57,7 @@
     top: 0;
     right: 0;/*右に固定*/
     z-index: 9999;
-    width: 90%;
+    width: auto;
     max-width: 330px;
     height: 100%;
     background: #444;

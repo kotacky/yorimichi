@@ -36,7 +36,7 @@ p#hedder {
 /*-------------------------------------*/
 /* フォーム */
 /*-------------------------------------*/
-label{
+.label{
 	cursor: pointer;
 	position: relative;
 	display: inline-block;
@@ -52,8 +52,8 @@ label{
 	border-radius: 10px
 }
 
-input {
-	display: none;
+input[name="radio_item"] {
+    display: none;
 }
 
 input[type="radio"]:checked + .label{
