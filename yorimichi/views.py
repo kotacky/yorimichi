@@ -99,3 +99,8 @@ class TUserCategoryViewSet(MongoModelViewSet):
     def delete(self, request,args):
         T_User_Category.objects.all().filter(user_id=args).delete();
         return HttpResponse("【T_User_Category】 削除完了")
+    @detail_route()
+    def search(self, request, *args, **kwargs):
+        tUserCategory = T_User_Category.objects.all().filter(user_id=args[0]);
+        serializer = self.get_serializer(tUserCategory, many=True)
+        return Response(serializer.data)

@@ -32,7 +32,7 @@ search_history = GetSearchHistoryViewSet.as_view({
 })
 
 crud_user_category = TUserCategoryViewSet.as_view({
-    'get': 'list',
+    'get': 'search',
     'post': 'create',
     'delete': 'delete'
 })

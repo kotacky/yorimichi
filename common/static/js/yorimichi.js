@@ -352,11 +352,14 @@ function open_sub_category() {
     // 現在T_User_Categoryに登録中のチェックボックスを取得
     $.get( '../api/' + cookie_id + '/crud_user_category/')
     // 結果受け取り
-    .done(function( dataList ) {
-        dataList.forEach(function(data) {
-            $("input[type='checkbox']").map(function() {
-                 if ($(this).parents('table').attr('value') == data.category_id && $(this).val() == data.sub_category_id){
-                    $(this).prop("checked",true);
+    .done(function( data_list ) {
+        console.log(data_list)
+        $("input[type='checkbox']").map(function() {
+            var $check_box = $(this)
+            $check_box.prop("checked",false);
+            data_list.forEach(function(data) {
+                 if ($check_box.parents('table').attr('value') == data.category_id && $check_box.val() == data.sub_category_id){
+                    $check_box.prop("checked",true);
                  }
             })
         });
