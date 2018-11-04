@@ -86,6 +86,6 @@ class GetSearchHistoryViewSet(MongoModelViewSet):
     # @detail_routeを使用して、独自のsearchアクションを作成
     @detail_route()
     def search(self, request, *args, **kwargs):
-        searchHistory = Search_History.objects.all().filter(user_id=args[0]).order_by('-search_time')[:100]
+        searchHistory = Search_History.objects.all().filter(user_id=args[0]).order_by('-search_time')[:20]
         serializer = self.get_serializer(searchHistory, many=True)
         return Response(serializer.data)
