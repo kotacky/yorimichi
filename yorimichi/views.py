@@ -3,7 +3,7 @@ from django.template.response import TemplateResponse
 from rest_framework_mongoengine.viewsets import ModelViewSet as MongoModelViewSet
 from yorimichi.serializers import *
 from yorimichi.models import Tool, M_Category, T_User_Category, Search_History
-
+from django.http import HttpResponse
 
 def index_view(request):
     context = {}
