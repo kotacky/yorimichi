@@ -512,9 +512,18 @@ function dateToFormatString(date, fmt, locale, pad) {
 // 検索履歴をポップアップに表示する
 function makeHistoryTable(h_num, s_place, s_time, s_category) {
     // テーブル取得、表示、初期化
+    var non_history = document.getElementById('non_history');
     var history_tbl = document.getElementById('history');
     while (history_tbl.rows.length > 1) history_tbl.deleteRow(1);
+    console.log(h_num);
     console.log(history_tbl);
+    if (h_num == 0) {
+        non_history.style.display = "block";
+        history_tbl.style.display = "none";
+    } else {
+        non_history.style.display = "none";
+        history_tbl.style.display = "block";
+    }
     for(var i = 0; i < h_num ; i++){
         // 一覧に表示する
         var history_tr = history_tbl.insertRow( history_tbl.rows.length );
@@ -567,9 +576,11 @@ function openSearchHistory() {
     })
     document.getElementById("history_popup").style.display = "block";
 }
+
 // ポップアップのクローズ処理
 function closePopup() {
     document.getElementById("history_list").scrollTop = 0;
+    document.getElementById("sub_category_list").scrollTop = 0;
     document.getElementById("history_overlay").style.display = "none";
     document.getElementById("history_popup").style.display = "none";
     document.getElementById("overlay_sub_category").style.display = "none";
@@ -581,7 +592,7 @@ function confirm_sub_category() {
 	// 「OK」時の処理開始 ＋ 確認ダイアログの表示
 	if(window.confirm("サブカテゴリ編集を完了しますか？")){
 	editUserCategory();
-	close_sub_category()
+	closePopup()
 	}
 	// 「キャンセル」時の処理開始
 	else{
