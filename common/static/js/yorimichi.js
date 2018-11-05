@@ -512,18 +512,8 @@ function dateToFormatString(date, fmt, locale, pad) {
 // 検索履歴をポップアップに表示する
 function makeHistoryTable(h_num, s_place, s_time, s_category) {
     // テーブル取得、表示、初期化
-    var non_history = document.getElementById('non_history');
     var history_tbl = document.getElementById('history');
     while (history_tbl.rows.length > 1) history_tbl.deleteRow(1);
-    console.log(h_num);
-    console.log(history_tbl);
-    if (h_num == 0) {
-        non_history.style.display = "block";
-        history_tbl.style.display = "none";
-    } else {
-        non_history.style.display = "none";
-        history_tbl.style.display = "block";
-    }
     for(var i = 0; i < h_num ; i++){
         // 一覧に表示する
         var history_tr = history_tbl.insertRow( history_tbl.rows.length );
