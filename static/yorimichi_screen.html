@@ -40,17 +40,16 @@
         <label class="nav-unshown" id="nav-close" for="nav-input"></label>
         <div id="nav-content">
 			<li>
-			    <a href="#" onclick="open_sub_category()">サブカテゴリ編集</a>
-	 		    <a href="#" onclick="openSearchHistory()">検索履歴</a>
+			    <a href="#" id="select_sub_category" onclick="open_sub_category()">サブカテゴリ編集</a>
+	 		    <a href="#" id="select_search_history" onclick="openSearchHistory()">検索履歴</a>
 			</li>
 	    </div>
     </div>
 	<div id="history_overlay" onclick="closePopup()"></div>
 	<div id="history_popup">
 		<p id="history_pop_title">検索履歴一覧</p>
-		<font id="non_history" color="red" style="display:none">検索履歴がありません</font>
 		<div id="history_list">
-			<table id="history" style="display:none" border="brwsr1">
+			<table id="history" border="brwsr1">
 				<Tr>
 					<Th id="history_th1">検索場所</Th>
 					<Th id="history_th2">検索時間</Th>
