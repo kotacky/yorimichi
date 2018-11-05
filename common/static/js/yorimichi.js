@@ -275,5 +275,27 @@ function panZoomMap(lat, lng, zoomNum) {
   });
 }
 
+
+/**
+* マスタ登録をするメソッド
+*/
+function registerMaster() {
+    // まず、存在するM_Categoryを削除する
+    $.ajax({
+        'url':'../api/crud_m_category',
+        'type':'DELETE',
+        'data':{
+        },
+        'dataType':'json',
+        'success':function(response){
+            console.log("M_categoryからデータを削除")
+        },
+    });
+
+        var data_list = []
+
+}
+
+
 // ページ読み込み完了後、Googleマップを表示
 google.maps.event.addDomListener(window, 'load', initialize);
