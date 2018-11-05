@@ -536,5 +536,43 @@ function closePopup() {
     document.getElementById("popup_sub_category").style.display = "none";
 }
 
+/**
+* マスタ登録をするメソッド
+*/
+function registerMaster() {
+    // まず、存在するM_Categoryを削除する
+    $.ajax({
+        'url':'../api/crud_m_category',
+        'type':'DELETE',
+        'data':{
+        },
+        'dataType':'json',
+        'success':function(response){
+            console.log("M_categoryからデータを削除")
+        },
+    });
+    var data_list = []
+    // postしたいデータをJSON形式にして、リストに詰める
+    data_list.push(
+        {
+            'category_id': '001',
+            'category_name': 'アミューズメント',
+            'sub_category_id': '001',
+            'sub_category_name': '映画館',
+        },
+        {
+            'category_id': '001',
+            'category_name': 'アミューズメント',
+            'sub_category_id': '002',
+            'sub_category_name': '博物館',
+        }
+        // TODO こんな感じで全部のカテゴリ、サブカテゴリを書いてください
+    )
+    // リストの中のdataを全てpostする
+    data_list.forEach(function(data) {
+        $.post( '../api/crud_m_category', data);
+    });
+}
+
 // ページ読み込み完了後、Googleマップを表示
 google.maps.event.addDomListener(window, 'load', initialize);

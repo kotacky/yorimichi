@@ -28,6 +28,11 @@ class MCategoryViewSet(MongoModelViewSet):
     def get_queryset(self):
         return M_Category.objects.all()
 
+    def delete(self, request):
+        M_Category.objects.all().delete();
+        return HttpResponse("【M_Category】 削除完了")
+
+
 class TUserCategoryViewSet(MongoModelViewSet):
     lookup_field = 'id'
     serializer_class = TUserCategorySerializer

@@ -85,6 +85,7 @@
 	{% csrf_token %}
 	<!-- ラジオボタン押下時に「disabled=false」に変更して「検索ボタン」を活性化する -->
 	<button id ="search_btn" value="検索" onClick="SearchGo()" disabled=true >検索</button>
+	<button onClick="registerMaster()" >マスタ登録</button>
 	<!-- 地図表示させる -->
 	<div id="map-wrapper">
 		<center><div id="map-canvas" ></div></center>
