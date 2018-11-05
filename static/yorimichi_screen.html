@@ -48,8 +48,9 @@
 	<div id="history_overlay" onclick="closePopup()"></div>
 	<div id="history_popup">
 		<p id="history_pop_title">検索履歴一覧</p>
+		<font id="non_history" color="red" style="display:none">検索履歴がありません</font>
 		<div id="history_list">
-			<table id="history" border="brwsr1">
+			<table id="history" style="display:none" border="brwsr1">
 				<Tr>
 					<Th id="history_th1">検索場所</Th>
 					<Th id="history_th2">検索時間</Th>
@@ -61,7 +62,7 @@
         	<a href="#openlocation" id="history_close" onclick="closePopup()">閉じる</a>
 		</p>
     </div>
-	<div id="overlay_sub_category" onclick="close_sub_category()"></div>
+	<div id="overlay_sub_category" onclick="closePopup()"></div>
 	<div id="popup_sub_category">
 		<p id="popup_sub_category_title">サブカテゴリ編集</p>
 		<div id="sub_category_list">
@@ -150,7 +151,7 @@
 		</div>
 		<br>
 		<input type="submit" value="編集する" onclick="confirm_sub_category()">
-        <a href="#openlocation" id="close_sub_category" onclick="close_sub_category()">閉じる</a>
+        <a href="#openlocation" id="close_sub_category" onclick="closePopup()">閉じる</a>
     </div>
 
 
@@ -162,13 +163,13 @@
 	<p id="product">寄道くん</p>
 	<p id="msg">カテゴリを選択してください。</p>
 	<form id="radio_item" method="post">
-		<input type="radio" name="radio_item" value="001" id="movie"><label class="label" for="movie" name="movie" ><p>映画</p></label>
+		<input type="radio" name="radio_item" value="001" id="amusement"><label class="label" for="amusement" name="amusement" ><p>ｱﾐｭｰｽﾞﾒﾝﾄ</p></label>
 		&nbsp;
 		<input type="radio" name="radio_item" value="002" id="gourmet"><label class="label" for="gourmet" name="gourmet"><p>グルメ</p></label>
 		<p id="margin"></p>
 		<input type="radio" name="radio_item" value="003" id="sports"><label class="label" for="sports" name="sports"><p>スポーツ</p></label>
 		&nbsp;
-		<input type="radio" name="radio_item" value="004" id="book"><label class="label" for="book" name="book"><p>本</p></label>
+		<input type="radio" name="radio_item" value="004" id="shopping"><label class="label" for="shopping" name="shopping"><p>ｼｮｯﾋﾟﾝｸﾞ</p></label>
 	</form>
 	{% csrf_token %}
 	<!-- ラジオボタン押下時に「disabled=false」に変更して「検索ボタン」を活性化する -->
