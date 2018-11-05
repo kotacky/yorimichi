@@ -39,9 +39,6 @@ r.forEach(function(value) {
     console.log(cookie_id);
 })
 
-
-
-
 //検索ボタン有効化切り替え
 $(function() {
     // ラジオボタンチェック時に有効化
@@ -153,8 +150,10 @@ function SearchGo() {
 
     // 現在T_User_Categoryに登録中のカテゴリ、サブカテゴリを取得
     $.get( '../api/' + cookie_id + '/crud_user_category/')
+    // 取得結果(T_User_Categoryに登録中のカテゴリ、サブカテゴリ）がdata_listに格納される
     .done(function( data_list ) {
         var sub_category_id_list = [];
+        // data_listの中で、「現在選択されているカテゴリID」のに所属しているサブカテゴリIDを取得し、リストへ詰める
         data_list.forEach(function(data) {
             if (data.category_id == $("input[name='radio_item']:checked").val()) {
                 sub_category_id_list.push(data.sub_category_id)
@@ -165,7 +164,8 @@ function SearchGo() {
             'url':'../api/' + $("input[name='radio_item']:checked").val() + '/search/',
             'type':'GET',
             'data':{
-            query:sub_category_id_list
+                // サブカテゴリIDリストをdataからJSON形式で渡すことで、GETリクエストで使用できるようになる。(views.pyで使用する)
+                list:sub_category_id_list
             },
             'dataType':'json',
             'success':function(response){
@@ -367,10 +367,12 @@ function open_sub_category() {
     // 結果受け取り
     .done(function( data_list ) {
         console.log(data_list)
+        // それぞれのチェックボックスに対し、登録中のカテゴリ、サブカテゴリの場合はチェックをつける。違ったらチェックを外す
         $("input[type='checkbox']").map(function() {
             var $check_box = $(this)
             $check_box.prop("checked",false);
             data_list.forEach(function(data) {
+                 // カテゴリIDの判断は、parents('table')を使い、そのvalueを取得する。サブカテゴリIDは、チェックボックス自身のvalue
                  if ($check_box.parents('table').attr('value') == data.category_id && $check_box.val() == data.sub_category_id){
                     $check_box.prop("checked",true);
                  }

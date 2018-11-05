@@ -74,7 +74,9 @@ class YorimichiViewSet(MongoModelViewSet):
 
         print("【YorimichiViewSet.search処理開始】")
         print("【検索条件】category_id = " + repr(args[0]))
-        mCategory = M_Category.objects.all().filter(category_id=args[0], sub_category_id__in=request.GET.getlist('query[]'))
+        # request.GET.get(キー値)で、リクエストに含まれるJSONデータを使用できる。(getlistだと、listとして使用できる)
+        # キー値はJavaScript内で指定した値を使う(今回の場合、listがキー値だが、ここに渡った時点で「list[]」に変換されるので、そのように指定している)
+        mCategory = M_Category.objects.all().filter(category_id=args[0], sub_category_id__in=request.GET.getlist('list[]'))
         serializer = self.get_serializer(mCategory, many=True)
         print("【M_Categoryテーブル取得結果】" + repr(serializer.data))
         print("【YorimichiViewSet.search処理終了】")
