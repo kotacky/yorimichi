@@ -31,6 +31,11 @@ search_history = GetSearchHistoryViewSet.as_view({
     'get': 'search',
 })
 
+crud_m_category = MCategoryViewSet.as_view({
+    'post': 'create',
+    'delete': 'delete'
+})
+
 urlpatterns = [
     # common配下のurls.pyと紐づいている
 
@@ -60,4 +65,7 @@ urlpatterns = [
     # Search_HistoryテーブルをユーザーIDを条件に検索を行うAPI
     # 例) http://127.0.0.1:8000/yorimichi/api/XXXX(user_id)/get_search_history
     url(r'^api/([0-9a-zA-Z]+)/get_search_history', search_history, name='search_history'),
+
+    # M_CategoryテーブルをカテゴリーIDを条件に検索を行うAPI
+    url(r'^api/crud_m_category', crud_m_category, name='crud'),
 ]
