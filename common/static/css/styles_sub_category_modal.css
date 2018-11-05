@@ -2,7 +2,7 @@
 
 /*-------------------------------------*/
 
-#pop_sub_category_title{
+#popup_sub_category_title{
     font-size: 2.3em;
 	background: #FFF;
 	font-family: 'Lucida Grande','Hiragino Kaku Gothic ProN', 'ヒラギノ角ゴ ProN W3', Meiryo, メイリオ, sans-serif;
@@ -25,7 +25,7 @@
 
 #popup_sub_category {
     display: none;
-    background:#fff;
+    background:#FFF;
     margin:10px;
     padding:20px;
 
@@ -38,9 +38,41 @@
     z-index:1000;
 }
 
+#sub_category_list {
+    background:#fff;
+    margin:5px;
+    padding:15px;
+     top: 5%;
+    left:10%;
+    width:92%;
+    height:70%;
+    overflow: auto;
+}
+
+
 #close_sub_category {
     font-size: 1.5em;
 	background: #FFF;
 	font-family: 'Lucida Grande','Hiragino Kaku Gothic ProN', 'ヒラギノ角ゴ ProN W3', Meiryo, メイリオ, sans-serif;
 	margin: 15px;
+}
+
+#amusement_table {
+    text-align: left;
+}
+
+ #gourmet_table {
+    text-align: left;
+}
+
+ #sport_table {
+    text-align: left;
+}
+
+ #shopping_table {
+    text-align: left;
+}
+
+ .sub_category_td {
+    width: 180px;
 }

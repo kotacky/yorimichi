@@ -78,7 +78,9 @@ class YorimichiViewSet(MongoModelViewSet):
     def search(self, request, *args, **kwargs):
         print("【YorimichiViewSet.search処理開始】")
         print("【検索条件】category_id = " + repr(args[0]))
-        mCategory = M_Category.objects.all().filter(category_id=args[0])
+        # request.GET.get(キー値)で、リクエストに含まれるJSONデータを使用できる。(getlistだと、listとして使用できる)
+        # キー値はJavaScript内で指定した値を使う(今回の場合、listがキー値だが、ここに渡った時点で「list[]」に変換されるので、そのように指定している)
+        mCategory = M_Category.objects.all().filter(category_id=args[0], sub_category_id__in=request.GET.getlist('list[]'))
         serializer = self.get_serializer(mCategory, many=True)
         print("【M_Categoryテーブル取得結果】" + repr(serializer.data))
         print("【YorimichiViewSet.search処理終了】")
@@ -93,4 +95,21 @@ class GetSearchHistoryViewSet(MongoModelViewSet):
     def search(self, request, *args, **kwargs):
         searchHistory = Search_History.objects.all().filter(user_id=args[0]).order_by('-search_time')[:20]
         serializer = self.get_serializer(searchHistory, many=True)
+        return Response(serializer.data)
+
+class TUserCategoryViewSet(MongoModelViewSet):
+    lookup_field = 'id'
+    serializer_class = TUserCategorySerializer
+
+    def get_queryset(self):
+        return T_User_Category.objects.all()
+
+    def delete(self, request, args):
+        T_User_Category.objects.all().filter(user_id=args).delete();
+        return HttpResponse("【T_User_Category】 削除完了")
+
+    @detail_route()
+    def search(self, request, *args, **kwargs):
+        tUserCategory = T_User_Category.objects.all().filter(user_id=args[0]);
+        serializer = self.get_serializer(tUserCategory, many=True)
         return Response(serializer.data)

@@ -38,7 +38,7 @@ body{
 /* フォーム */
 /*-------------------------------------*/
 
-label{
+.label{
 	cursor: pointer;
 	position: relative;
 	display: inline-block;
@@ -54,7 +54,7 @@ label{
 	border-radius: 10px
 }
 
-input {
+input[name="radio_item"] {
 	display: none;
 }
 

@@ -149,31 +149,46 @@ function SearchGo() {
         console.log("成功！");
     })
 
-    // DBからサブカテゴリを取得
-    $.ajax({
-        'url':'../api/' + $("input[name='radio_item']:checked").val() + '/search/',
-        'type':'GET',
-        'data':{},
-        'dataType':'json',
-        'success':function(response){
-            response_length = response.length;
-            var array = [];
-            for(var i in response){
-                array.push(response[i].sub_category_name);
+    // 現在T_User_Categoryに登録中のカテゴリ、サブカテゴリを取得
+    $.get( '../api/' + cookie_id + '/crud_user_category/')
+    // 取得結果(T_User_Categoryに登録中のカテゴリ、サブカテゴリ）がdata_listに格納される
+    .done(function( data_list ) {
+        var sub_category_id_list = [];
+        // data_listの中で、「現在選択されているカテゴリID」のに所属しているサブカテゴリIDを取得し、リストへ詰める
+        data_list.forEach(function(data) {
+            if (data.category_id == $("input[name='radio_item']:checked").val()) {
+                sub_category_id_list.push(data.sub_category_id)
             }
-            console.log(array)
-            service = new google.maps.places.PlacesService(map);
-            for(i=0; i< response.length; i++){
-                // input要素に入力されたキーワードを検索の条件に設定
-                var request = {
-                    keyword :  response[i].sub_category_name,
-                    location : latlng,
-                    rankBy: google.maps.places.RankBy.DISTANCE
-                };
-                service.nearbySearch(request, resultPush)
-            }
-        },
-    });
+        })
+        // DBからサブカテゴリを取得
+        $.ajax({
+            'url':'../api/' + $("input[name='radio_item']:checked").val() + '/search/',
+            'type':'GET',
+            'data':{
+                // サブカテゴリIDリストをdataからJSON形式で渡すことで、GETリクエストで使用できるようになる。(views.pyで使用する)
+                list:sub_category_id_list
+            },
+            'dataType':'json',
+            'success':function(response){
+                response_length = response.length;
+                var array = [];
+                for(var i in response){
+                    array.push(response[i].sub_category_name);
+                }
+                console.log(array)
+                service = new google.maps.places.PlacesService(map);
+                for(i=0; i< response.length; i++){
+                    // input要素に入力されたキーワードを検索の条件に設定
+                    var request = {
+                        keyword :  response[i].sub_category_name,
+                        location : latlng,
+                        rankBy: google.maps.places.RankBy.DISTANCE
+                    };
+                    service.nearbySearch(request, resultPush)
+                }
+            },
+        });
+    })
 }
 
 // 検索の結果を受け取り、配列に格納。全て受け取ったらresult_searchを呼ぶ
@@ -214,6 +229,13 @@ function mainProc(result_list) {
     }
      // 距離順にソート
     results.sort(compare);
+
+    if (restriction_number > results.length) {
+        restriction_number = results.length;
+    }
+    if (results.length >= 5) {
+        restriction_number = 5;
+    }
 
     // マーカー設定
     for(var i = 0; i < restriction_number; i++){
@@ -343,10 +365,28 @@ function panZoomMap(lat, lng, zoomNum) {
   });
 }
 
+// サブカテゴリ編集ポップアップ表示
 function open_sub_category() {
     document.getElementById("nav-input").checked = false;
     document.getElementById("overlay_sub_category").style.display = "block";
     document.getElementById("popup_sub_category").style.display = "block";
+     // 現在T_User_Categoryに登録中のカテゴリ、サブカテゴリを取得
+    $.get( '../api/' + cookie_id + '/crud_user_category/')
+    // 結果受け取り
+    .done(function( data_list ) {
+        console.log(data_list)
+        // それぞれのチェックボックスに対し、登録中のカテゴリ、サブカテゴリの場合はチェックをつける。違ったらチェックを外す
+        $("input[type='checkbox']").map(function() {
+            var $check_box = $(this)
+            $check_box.prop("checked",false);
+            data_list.forEach(function(data) {
+                 // カテゴリIDの判断は、parents('table')を使い、そのvalueを取得する。サブカテゴリIDは、チェックボックス自身のvalue
+                 if ($check_box.parents('table').attr('value') == data.category_id && $check_box.val() == data.sub_category_id){
+                    $check_box.prop("checked",true);
+                 }
+            })
+        });
+    })
 }
 
 /**
@@ -535,6 +575,48 @@ function closePopup() {
     document.getElementById("overlay_sub_category").style.display = "none";
     document.getElementById("popup_sub_category").style.display = "none";
 }
+
+// サブカテゴリ編集の確認メッセージ
+function confirm_sub_category() {
+	// 「OK」時の処理開始 ＋ 確認ダイアログの表示
+	if(window.confirm("サブカテゴリ編集を完了しますか？")){
+	editUserCategory();
+	close_sub_category()
+	}
+	// 「キャンセル」時の処理開始
+	else{
+		window.alert("キャンセルされました"); // 警告ダイアログを表示
+	}
+}
+
+ function editUserCategory() {
+     // T_User_Categoryに存在する、クッキーIDに紐づくデータを全て削除(何故かログは出ない)
+    $.ajax({
+        'url':'../api/' + cookie_id + '/crud_user_category',
+        'type':'DELETE',
+        'data':{},
+        'dataType':'json',
+        'success':function(response){
+            console.log("ユーザIDに紐づくデータを削除")
+        },
+    });
+     var data_list = [];
+    var entry_date = dateToFormatString(new Date(), '%YYYY%-%MM%-%DD% %HH%:%mm%:%ss%');
+    // チェックされているチェックボックスのサブカテゴリIDと、その親要素にあたるカテゴリIDを取得
+     $("input[type='checkbox']:checked").map(function() {
+        var data = {
+            'user_id': cookie_id,
+            'category_id': $(this).parents('table').attr('value'),
+            'sub_category_id': $(this).val(),
+            'entry_date': entry_date
+        }
+        data_list.push(data)
+    });
+     // データを一つずつpostする
+    data_list.forEach(function(data) {
+        $.post( '../api/' + cookie_id + '/crud_user_category', data);
+    });
+ }
 
 /**
 * マスタ登録をするメソッド

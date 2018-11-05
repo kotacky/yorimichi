@@ -36,6 +36,12 @@ crud_m_category = MCategoryViewSet.as_view({
     'delete': 'delete'
 })
 
+crud_user_category = TUserCategoryViewSet.as_view({
+    'get': 'search',
+    'post': 'create',
+    'delete': 'delete'
+})
+
 urlpatterns = [
     # common配下のurls.pyと紐づいている
 
@@ -68,4 +74,7 @@ urlpatterns = [
 
     # M_CategoryテーブルをカテゴリーIDを条件に検索を行うAPI
     url(r'^api/crud_m_category', crud_m_category, name='crud'),
+
+    # T_User_Categoryテーブルの編集(削除、登録)を行うAPI
+    url(r'^api/([0-9a-zA-Z]+)/crud_user_category', crud_user_category, name='crud'),
 ]
