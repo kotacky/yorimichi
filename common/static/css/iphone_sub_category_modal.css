@@ -1,0 +1,95 @@
+﻿@charset "utf-8";
+
+/*-------------------------------------*/
+
+#popup_sub_category_title{
+    font-size: 1.5em;
+	background: #FFF;
+	font-family: 'Lucida Grande','Hiragino Kaku Gothic ProN', 'ヒラギノ角ゴ ProN W3', Meiryo, メイリオ, sans-serif;
+	margin: 10px;
+}
+
+#overlay_sub_category {
+    position: fixed;
+    display: none;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 2;
+    cursor: pointer;
+}
+
+#popup_sub_category {
+    display: none;
+    background:#FFF;
+    margin:2px;
+    padding:10px;
+
+    top:5%;
+    left:4%;
+    width:85%;
+    height:85%;
+
+    position:fixed;
+    z-index:1000;
+}
+
+#sub_category_list {
+    background:#fff;
+    margin:5px;
+    padding:5px;
+    top: 5%;
+    left:5%;
+    width:95%;
+    height:80%;
+    overflow: auto;
+}
+
+
+#close_sub_category {
+    font-size: 1.2em;
+	background: #FFF;
+	font-family: 'Lucida Grande','Hiragino Kaku Gothic ProN', 'ヒラギノ角ゴ ProN W3', Meiryo, メイリオ, sans-serif;
+	margin: 15px;
+}
+
+#sub_category_footer{
+    margin:35px;
+}
+
+#amusement_table {
+    text-align: left;
+}
+
+ #gourmet_table {
+    text-align: left;
+}
+
+ #sport_table {
+    text-align: left;
+}
+
+ #shopping_table {
+    text-align: left;
+}
+
+ .sub_category_td {
+    width: 200px;
+    height: 35px;
+
+}
+
+input[type=checkbox].sub_check {
+    width: 12px;
+    height: 12px;
+
+}
+
+.sub_name {
+    font-size: 8px;
+
+}
