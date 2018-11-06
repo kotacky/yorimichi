@@ -13,12 +13,12 @@
 	if (navigator.userAgent.indexOf('iPhone') > 0) {
         document.write('<link rel="stylesheet" href="{% static 'css/iphone.css' %}">');
         document.write('<link rel="stylesheet" href="{% static 'css/iphone_config.css' %}">');
-        document.write('<link rel="stylesheet" href="{% static 'css/styles_sub_category_modal.css' %}">');
+        document.write('<link rel="stylesheet" href="{% static 'css/iphone_sub_category_modal.css' %}">');
         document.write('<link rel="stylesheet" href="{% static 'css/iphone_search_history.css' %}">');
     } else if (navigator.userAgent.indexOf('Android') > 0) {
         document.write('<link rel="stylesheet" href="{% static 'css/android.css' %}">');
         document.write('<link rel="stylesheet" href="{% static 'css/android_config.css' %}">');
-        document.write('<link rel="stylesheet" href="{% static 'css/styles_sub_category_modal.css' %}">');
+        document.write('<link rel="stylesheet" href="{% static 'css/android_sub_category_modal.css' %}">');
         document.write('<link rel="stylesheet" href="{% static 'css/android_search_history.css' %}">');
     } else {
         document.write('<link rel="stylesheet" href="{% static 'css/styles.css' %}">');
@@ -67,108 +67,103 @@
 		<div id="sub_category_list">
 			<table id="amusement_table" value="001">アミューズメント<br>
 			<Tr>
-				<Td class="sub_category_td"><input type="checkbox" value="001">映画館</Td>
-				<Td class="sub_category_td"><input type="checkbox" value="002">博物館</Td>
-				<Td class="sub_category_td"><input type="checkbox" value="003">美術館</Td>
+				<Td class="sub_category_td"><input class="sub_check" type="checkbox" value="001"><label class="sub_name">映画館</label></Td>
+				<Td class="sub_category_td"><input class="sub_check" type="checkbox" value="002"><label class="sub_name">博物館</label></Td>
+				<Td class="sub_category_td"><input class="sub_check" type="checkbox" value="003"><label class="sub_name">美術館</label></Td>
 			</Tr>
 			<Tr>
-				<Td class="sub_category_td"><input type="checkbox" value="004">カラオケ</Td>
-				<Td class="sub_category_td"><input type="checkbox" value="005">ボウリング</Td>
-				<Td class="sub_category_td"><input type="checkbox" value="006">ゲームセンター</Td>
+				<Td class="sub_category_td"><input class="sub_check" type="checkbox" value="004"><label class="sub_name">カラオケ</label></Td>
+				<Td class="sub_category_td"><input class="sub_check" type="checkbox" value="005"><label class="sub_name">ボウリング</label></Td>
+				<Td class="sub_category_td"><input class="sub_check" type="checkbox" value="006"><label class="sub_name">ゲームセンター</label></Td>
 			</Tr>
 			<Tr>
-				<Td class="sub_category_td"><input type="checkbox" value="007">遊園地</Td>
-				<Td class="sub_category_td"><input type="checkbox" value="008">スパ</Td>
-				<Td class="sub_category_td"><input type="checkbox" value="009">漫画喫茶</Td>
+				<Td class="sub_category_td"><input class="sub_check" type="checkbox" value="007"><label class="sub_name">遊園地</label></Td>
+				<Td class="sub_category_td"><input class="sub_check" type="checkbox" value="008"><label class="sub_name">スパ</label></Td>
+				<Td class="sub_category_td"><input class="sub_check" type="checkbox" value="009"><label class="sub_name">漫画喫茶</label></Td>
 			</Tr>
 			<Tr>
-				<Td class="sub_category_td"><input type="checkbox" value="010">パチンコ・パチスロ</Td>
-				<Td class="sub_category_td"><input type="checkbox" value="011">雀荘</Td>
+				<Td class="sub_category_td"><input class="sub_check" type="checkbox" value="010"><label class="sub_name">パチンコ・パチスロ</label></Td>
+				<Td class="sub_category_td"><input class="sub_check" type="checkbox" value="011"><label class="sub_name">雀荘</label></Td>
 			</Tr>
 			</table>
-		<br>
+			<p></p>
 			<table id="gourmet_table" value="002">グルメ<br>
 			<Tr>
-				<Td class="sub_category_td"><input type="checkbox" value="001">ファストフード</Td>
-				<Td class="sub_category_td"><input type="checkbox" value="002">居酒屋</Td>
-				<Td class="sub_category_td"><input type="checkbox" value="003">ダイニングバー</Td>
+				<Td class="sub_category_td"><input class="sub_check" type="checkbox" value="001"><label class="sub_name">ファストフード</label></Td>
+				<Td class="sub_category_td"><input class="sub_check" type="checkbox" value="002"><label class="sub_name">居酒屋</label></Td>
+				<Td class="sub_category_td"><input class="sub_check" type="checkbox" value="003"><label class="sub_name">ダイニングバー</label></Td>
 			</Tr>
 			<Tr>
-				<Td class="sub_category_td"><input type="checkbox" value="004">和食</Td>
-				<Td class="sub_category_td"><input type="checkbox" value="005">洋食</Td>
-				<Td class="sub_category_td"><input type="checkbox" value="006">中華</Td>
+				<Td class="sub_category_td"><input class="sub_check" type="checkbox" value="004"><label class="sub_name">和食</label></Td>
+				<Td class="sub_category_td"><input class="sub_check" type="checkbox" value="005"><label class="sub_name">洋食</label></Td>
+				<Td class="sub_category_td"><input class="sub_check" type="checkbox" value="006"><label class="sub_name">中華</label></Td>
 			</Tr>
 			<Tr>
-				<Td class="sub_category_td"><input type="checkbox" value="007">フレンチ</Td>
-				<Td class="sub_category_td"><input type="checkbox" value="008">イタリアン</Td>
-				<Td class="sub_category_td"><input type="checkbox" value="009">焼肉・ホルモン</Td>
+				<Td class="sub_category_td"><input class="sub_check" type="checkbox" value="007"><label class="sub_name">フレンチ</label></Td>
+				<Td class="sub_category_td"><input class="sub_check" type="checkbox" value="008"><label class="sub_name">イタリアン</label></Td>
+				<Td class="sub_category_td"><input class="sub_check" type="checkbox" value="009"><label class="sub_name">焼肉・ホルモン</label></Td>
 			</Tr>
 			<Tr>
-				<Td class="sub_category_td"><input type="checkbox" value="010">エスニック</Td>
-				<Td class="sub_category_td"><input type="checkbox" value="011">ラーメン</Td>
-				<Td class="sub_category_td"><input type="checkbox" value="012">お好み焼き・もんじゃ</Td>
+				<Td class="sub_category_td"><input class="sub_check" type="checkbox" value="010"><label class="sub_name">エスニック</label></Td>
+				<Td class="sub_category_td"><input class="sub_check" type="checkbox" value="011"><label class="sub_name">ラーメン</label></Td>
+				<Td class="sub_category_td"><input class="sub_check" type="checkbox" value="012"><label class="sub_name">お好み焼き･もんじゃ</label></Td>
 			</Tr>
 			<Tr>
-				<Td class="sub_category_td"><input type="checkbox" value="013">バー</Td>
-				<Td class="sub_category_td"><input type="checkbox" value="014">喫茶店</Td>
-				<Td class="sub_category_td"><input type="checkbox" value="015">スイーツ</Td>
+				<Td class="sub_category_td"><input class="sub_check" type="checkbox" value="013"><label class="sub_name">バー</label></Td>
+				<Td class="sub_category_td"><input class="sub_check" type="checkbox" value="014"><label class="sub_name">喫茶店</label></Td>
+				<Td class="sub_category_td"><input class="sub_check" type="checkbox" value="015"><label class="sub_name">スイーツ</label></Td>
 			</Tr>
 			</table>
-		<br>
+			<p></p>
 			<table id="sport_table" value="003">スポーツ<br>
 			<Tr>
-				<Td class="sub_category_td"><input type="checkbox" value="001">野球</Td>
-				<Td class="sub_category_td"><input type="checkbox" value="002">サッカー</Td>
-				<Td class="sub_category_td"><input type="checkbox" value="003">ゴルフ</Td>
+				<Td class="sub_category_td"><input class="sub_check" type="checkbox" value="001"><label class="sub_name">野球</label></Td>
+				<Td class="sub_category_td"><input class="sub_check" type="checkbox" value="002"><label class="sub_name">サッカー</label></Td>
+				<Td class="sub_category_td"><input class="sub_check" type="checkbox" value="003"><label class="sub_name">ゴルフ</label></Td>
 			</Tr>
 			<Tr>
-				<Td class="sub_category_td"><input type="checkbox" value="004">体育館</Td>
-				<Td class="sub_category_td"><input type="checkbox" value="005">競技場</Td>
-				<Td class="sub_category_td"><input type="checkbox" value="006">プール</Td>
+				<Td class="sub_category_td"><input class="sub_check" type="checkbox" value="004"><label class="sub_name">体育館</label></Td>
+				<Td class="sub_category_td"><input class="sub_check" type="checkbox" value="005"><label class="sub_name">競技場</label></Td>
+				<Td class="sub_category_td"><input class="sub_check" type="checkbox" value="006"><label class="sub_name">プール</label></Td>
 			</Tr>
 			<Tr>
-				<Td class="sub_category_td"><input type="checkbox" value="007">ジム</Td>
+				<Td class="sub_category_td"><input class="sub_check" type="checkbox" value="007"><label class="sub_name">ジム</label></Td>
 			</Tr>
 			</table>
-		<br>
+			<p></p>
 			<table id="shopping_table" value="004">ショッピング<br>
 			<Tr>
-				<Td class="sub_category_td"><input type="checkbox" value="001">デパート</Td>
-				<Td class="sub_category_td"><input type="checkbox" value="002">スーパー</Td>
-				<Td class="sub_category_td"><input type="checkbox" value="003">コンビニ</Td>
+				<Td class="sub_category_td"><input class="sub_check" type="checkbox" value="001"><label class="sub_name">デパート</label></Td>
+				<Td class="sub_category_td"><input class="sub_check" type="checkbox" value="002"><label class="sub_name">スーパー</label></Td>
+				<Td class="sub_category_td"><input class="sub_check" type="checkbox" value="003"><label class="sub_name">コンビニ</label></Td>
 			</Tr>
 			<Tr>
-				<Td class="sub_category_td"><input type="checkbox" value="004">衣服</Td>
-				<Td class="sub_category_td"><input type="checkbox" value="005">靴・シューズ</Td>
-				<Td class="sub_category_td"><input type="checkbox" value="006">スポーツ用品</Td>
+				<Td class="sub_category_td"><input class="sub_check" type="checkbox" value="004"><label class="sub_name">衣服</label></Td>
+				<Td class="sub_category_td"><input class="sub_check" type="checkbox" value="005"><label class="sub_name">靴・シューズ</label></Td>
+				<Td class="sub_category_td"><input class="sub_check" type="checkbox" value="006"><label class="sub_name">スポーツ用品</label></Td>
 			</Tr>
 			<Tr>
-				<Td class="sub_category_td"><input type="checkbox" value="007">本</Td>
-				<Td class="sub_category_td"><input type="checkbox" value="008">電器店</Td>
+				<Td class="sub_category_td"><input class="sub_check" type="checkbox" value="007"><label class="sub_name">本</label></Td>
+				<Td class="sub_category_td"><input class="sub_check" type="checkbox" value="008"><label class="sub_name">電器店</label></Td>
 			</Tr>
 			</table>
 		</div>
-		<br>
-		<input type="submit" value="編集する" onclick="confirm_sub_category()">
-        <a href="#openlocation" id="close_sub_category" onclick="closePopup()">閉じる</a>
+		<p></p>
+		<p id="sub_category_footer">
+			<input type="submit" value="編集する" onclick="confirm_sub_category()">
+        	<a href="#openlocation" id="close_sub_category" onclick="closePopup()">閉じる</a>
+		</p>
     </div>
-
-
-	</div>
-
-    </div>
-
-
 	<p id="product">寄道くん</p>
 	<p id="msg">カテゴリを選択してください。</p>
 	<form id="radio_item" method="post">
-		<input type="radio" name="radio_item" value="001" id="amusement"><label class="label" for="amusement" name="amusement" ><p>ｱﾐｭｰｽﾞﾒﾝﾄ</p></label>
+		<input type="radio" name="radio_item" value="001" id="amusement"><label class="label" for="amusement" name="amusement" ><p>&nbsp;ｱﾐｭｰｽﾞﾒﾝﾄ</p></label>
 		&nbsp;
 		<input type="radio" name="radio_item" value="002" id="gourmet"><label class="label" for="gourmet" name="gourmet"><p>グルメ</p></label>
 		<p id="margin"></p>
 		<input type="radio" name="radio_item" value="003" id="sports"><label class="label" for="sports" name="sports"><p>スポーツ</p></label>
 		&nbsp;
-		<input type="radio" name="radio_item" value="004" id="shopping"><label class="label" for="shopping" name="shopping"><p>ｼｮｯﾋﾟﾝｸﾞ</p></label>
+		<input type="radio" name="radio_item" value="004" id="shopping"><label class="label" for="shopping" name="shopping"><p>&nbsp;ｼｮｯﾋﾟﾝｸﾞ</p></label>
 	</form>
 	{% csrf_token %}
 	<!-- ラジオボタン押下時に「disabled=false」に変更して「検索ボタン」を活性化する -->
@@ -189,7 +184,6 @@
 	<br>
 	<div id="footer">
 		<p id="copyright">Copyright (c) training_scrum Inc. All Rights Reserved.</p>
-	</div>
 	</div>
 </body>
 </html>
