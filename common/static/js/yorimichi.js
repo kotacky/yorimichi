@@ -590,6 +590,84 @@ function confirm_sub_category() {
 	}
 }
 
+// サブカテゴリ初期値設定
+function initSubCategory() {
+    var data_list = []
+    var entry_date = dateToFormatString(new Date(), '%YYYY%-%MM%-%DD% %HH%:%mm%:%ss%');
+    $.ajax({
+        'url':'../api/' + cookie_id + '/crud_user_category',
+        'type':'GET',
+        'dataType': 'json',
+        'success':function(response){
+        　　// ユーザ情報に紐付くレコードが0件の場合、サブカテゴリに初期値を設定する
+            if (0 === response.length) {
+                console.log("initSubCategory")
+                // 初期サブカテゴリをリストに詰める
+                data_list.push(
+                    {
+                        'user_id': cookie_id,
+                        'category_id': '001',
+                        'sub_category_id': '001',
+                        'entry_date': entry_date
+                    },
+                    {
+                        'user_id': cookie_id,
+                        'category_id': '001',
+                        'sub_category_id': '004',
+                        'entry_date': entry_date
+                    },
+                    {
+                        'user_id': cookie_id,
+                        'category_id': '002',
+                        'sub_category_id': '001',
+                        'entry_date': entry_date
+                    },
+                    {
+                        'user_id': cookie_id,
+                        'category_id': '002',
+                        'sub_category_id': '002',
+                        'entry_date': entry_date
+                    },
+                    {
+                        'user_id': cookie_id,
+                        'category_id': '002',
+                        'sub_category_id': '014',
+                        'entry_date': entry_date
+                    },
+                    {
+                        'user_id': cookie_id,
+                        'category_id': '003',
+                        'sub_category_id': '004',
+                        'entry_date': entry_date
+                    },
+                    {
+                        'user_id': cookie_id,
+                        'category_id': '003',
+                        'sub_category_id': '007',
+                        'entry_date': entry_date
+                    },
+                    {
+                        'user_id': cookie_id,
+                        'category_id': '004',
+                        'sub_category_id': '001',
+                        'entry_date': entry_date
+                    },
+                    {
+                        'user_id': cookie_id,
+                        'category_id': '004',
+                        'sub_category_id': '002',
+                        'entry_date': entry_date
+                    }
+                )
+                // サブカテゴリを登録
+                data_list.forEach(function(data) {
+                    $.post( '../api/' + cookie_id + '/crud_user_category', data);
+                });
+            }
+        }
+    })
+}
+
  function editUserCategory() {
      // T_User_Categoryに存在する、クッキーIDに紐づくデータを全て削除(何故かログは出ない)
     $.ajax({
@@ -895,3 +973,6 @@ function registerMaster() {
 
 // ページ読み込み完了後、Googleマップを表示
 google.maps.event.addDomListener(window, 'load', initialize);
+
+// ページ読み込み時、サブカテゴリ初期値設定イベントを実行
+document.addEventListener("DOMContentLoaded", initSubCategory());
